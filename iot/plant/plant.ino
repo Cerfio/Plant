@@ -4,7 +4,8 @@
 #include <ESP8266WebServer.h>
 #include <ArduinoJson.h>
 #include <Preferences.h>
-
+#include <CooperativeMultitasking.h>
+#include <MQTTClient.h>
 #include <SPI.h>
 
 #ifndef APSSID
@@ -12,11 +13,24 @@
 #define NUMBER_MAX_TRY_CONNECTION 3
 #define SERVER_PING "www.google.com"
 #define PREFERENCE_FILE_NAME "wificreds"
+#define HOSTNAME_MQTT "192.168.1.30"
+#define HOST_IP_MQTT 1883
+#define TOPIC_MQTT "/nodejs/mqtt"
 #endif
+
+char clientid[] = "Cerfio-Arduino";
+char topicname[] = TOPIC_MQTT;
+
 
 ESP8266WebServer server(80);
 
 Preferences preferences;
+
+CooperativeMultitasking tasks;
+WiFiClient wificlient;
+MQTTClient mqttclient(&tasks, &wificlient, HOSTNAME_MQTT, HOST_IP_MQTT, clientid, NULL, NULL);
+MQTTTopic topic(&mqttclient, topicname);
+
 
 void scanNetwork() {
   //WiFi.mode(WIFI_STA);
@@ -40,11 +54,6 @@ void scanNetwork() {
 bool connectWifi(const char* ssid, const char* password) {
   WiFi.hostname(HOSTNAME);
 
-  Serial.print("Input ssid: ");
-  Serial.println(ssid);
-  Serial.print("Input password: ");
-  Serial.println(password);
-
   int max_connection_try = 0;
   int status = WL_IDLE_STATUS;
 
@@ -65,6 +74,24 @@ bool connectWifi(const char* ssid, const char* password) {
   bool hasPing = Ping.ping(SERVER_PING);
   if (!hasPing) {
     Serial.println("Fail ping");
+    return false;
+  }
+  return true;
+}
+
+bool connectMqtt() {
+
+  int max_connection_try = 0;
+  bool status = false;
+
+  while (status != true && max_connection_try < NUMBER_MAX_TRY_CONNECTION) {
+    Serial.println("Attempting to connect to MQTT");
+    status = mqttclient.connect();
+    delay(1000);
+    max_connection_try++;
+  }
+  if (status == false) {
+    Serial.println("Fail MQTT connection");
     return false;
   }
   return true;
@@ -102,7 +129,6 @@ void connectNetwork() {
   server.send(200, "text/json", "{\"message\":true}");
 }
 
-
 void setup() {
   delay(1000);
   Serial.begin(115200);
@@ -127,6 +153,9 @@ void setup() {
       run_server = false;
       Serial.println("Already have wifi");
     }
+    if (isConnected) {
+      bool a = connectMqtt();
+    }
   }
 
   if (run_server) {
@@ -138,8 +167,26 @@ void setup() {
     server.begin();
     Serial.println("HTTP server started");
   }
+  mqttclient.connect();
 }
 
+bool a = false;
+
 void loop() {
-  server.handleClient();
+  // server.handleClient();
+  // This is needed at the top of the loop!
+  // topic.loop();
+
+  // if (a == false && ) {
+    topic.publish("Hello");
+    // a = true;
+    while (tasks.available()) {
+      tasks.run();
+    }
+    // mqttclient.disconnect();
+  // }
+
+
+  // Dont overload the server!
+  delay(1000);
 }

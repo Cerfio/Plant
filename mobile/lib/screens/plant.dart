@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:plant_iot_epitech/ui/cards_elementary/card_elementary_age.dart';
+import 'package:plant_iot_epitech/ui/cards_elementary/card_elementary_battery.dart';
 import 'package:plant_iot_epitech/ui/cards_elementary/card_elementary_humidity_air.dart';
 import 'package:plant_iot_epitech/ui/cards_elementary/card_elementary_humidity_soil.dart';
 import 'package:plant_iot_epitech/ui/cards_elementary/card_elementary_light.dart';
@@ -22,9 +24,17 @@ class Plant extends StatelessWidget {
       width: MediaQuery.of(context).size.width,
       color: const Color(0xffC9DBBD),
       child: SlidingUpPanel(
+        parallaxEnabled: true,
+        parallaxOffset: 0.5,
+        borderRadius: const BorderRadius.only(
+            topLeft: Radius.circular(1000), topRight: Radius.circular(1000)),
+        maxHeight: MediaQuery.of(context).size.height - 10,
+        minHeight: 500,
         panel: Container(
+          padding: EdgeInsetsGeometry.lerp(const EdgeInsets.only(top: 20),
+              const EdgeInsets.only(top: 20), 0.5),
           decoration: const BoxDecoration(
-            color: Color(0xffC9DBBD),
+            color: Color(0xffF9FAF7),
             borderRadius: BorderRadius.only(
               topLeft: Radius.circular(30.0),
               topRight: Radius.circular(30.0),
@@ -35,6 +45,20 @@ class Plant extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                SizedBox(
+                  child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Container(
+                          width: 80,
+                          height: 10,
+                          color: const Color(0xffE3E5E5),
+                        ),
+                      ]),
+                ),
+                const SizedBox(
+                  height: 30,
+                ),
                 const Text(
                   "Care recommendations",
                   style: TextStyle(
@@ -45,18 +69,24 @@ class Plant extends StatelessWidget {
                 ),
                 Expanded(
                   child: GridView.count(
-                      physics: const NeverScrollableScrollPhysics(),
-                      crossAxisCount: 2,
-                      mainAxisSpacing: 20,
-                      crossAxisSpacing: 20,
-                      children: const [
-                        CardElementaryWater(),
-                        CardElementaryTemperature(),
-                        CardElementaryHumidityAir(),
-                        CardElementaryHumiditySoil(),
-                        CardElementaryLight(),
-                        CardElementaryPressure(),
-                      ]),
+                    padding: const EdgeInsets.only(top: 16),
+                    crossAxisCount: 2,
+                    mainAxisSpacing: 20,
+                    crossAxisSpacing: 20,
+                    children: const [
+                      CardElementaryWater(),
+                      CardElementaryTemperature(),
+                      CardElementaryHumidityAir(),
+                      CardElementaryHumiditySoil(),
+                      CardElementaryLight(),
+                      CardElementaryPressure(),
+                      CardElementaryAge(),
+                      CardElementaryBattery(),
+                      SizedBox(
+                        height: 1,
+                      )
+                    ],
+                  ),
                 ),
               ],
             ),
@@ -89,48 +119,3 @@ class Plant extends StatelessWidget {
     );
   }
 }
-
-// return Container(
-//   decoration: const BoxDecoration(
-//     color: Color(0xffC9DBBD),
-//     boxShadow: [
-//       BoxShadow(color: Colors.green, spreadRadius: 3),
-//     ],
-//     borderRadius: BorderRadius.only(
-//       topLeft: Radius.circular(30.0),
-//       topRight: Radius.circular(30.0),
-//     ),
-//   ),
-//   child: const Text("fefef"),
-// );
-// Padding(
-//         padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16.0),
-//         child: Column(
-//           crossAxisAlignment: CrossAxisAlignment.start,
-//           children: [
-//             const Text(
-//               "Care recommendations",
-//               style: TextStyle(
-//                 fontSize: 24,
-//                 fontWeight: FontWeight.w600,
-//                 color: Color(0xff8BA07E),
-//               ),
-//             ),
-//             Expanded(
-//               child: GridView.count(
-//                   physics: const NeverScrollableScrollPhysics(),
-//                   crossAxisCount: 2,
-//                   mainAxisSpacing: 20,
-//                   crossAxisSpacing: 20,
-//                   children: const [
-//                     CardElementaryWater(),
-//                     CardElementaryTemperature(),
-//                     CardElementaryHumidityAir(),
-//                     CardElementaryHumiditySoil(),
-//                     CardElementaryLight(),
-//                     CardElementaryPressure(),
-//                   ]),
-//             ),
-//           ],
-//         ),
-//       ),

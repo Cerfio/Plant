@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:plant_iot_epitech/pages/plant.dart';
+import 'package:plant_iot_epitech/screens/splash.dart';
+import 'package:plant_iot_epitech/screens/introduction.dart';
+import 'package:plant_iot_epitech/screens/plant.dart';
 import 'package:plant_iot_epitech/ui/cards_elementary/card_elementary_humidity_air.dart';
 import 'package:plant_iot_epitech/ui/cards_elementary/card_elementary_humidity_soil.dart';
 import 'package:plant_iot_epitech/ui/cards_elementary/card_elementary_light.dart';
@@ -22,7 +24,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(),
+      home: const Introduction(),
     );
   }
 }

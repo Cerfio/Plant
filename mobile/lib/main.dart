@@ -10,6 +10,7 @@ import 'package:plant_iot_epitech/ui/cards_elementary/card_elementary_temperatur
 import 'package:plant_iot_epitech/ui/cards_elementary/card_elementary_water.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(const MyApp());
 }
 
@@ -24,7 +25,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const Introduction(),
+      home: const Splash(),
     );
   }
 }

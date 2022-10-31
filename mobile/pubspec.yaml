@@ -38,6 +38,7 @@ dependencies:
   flutter_svg: ^1.1.6
   sliding_up_panel: ^2.0.0+1
   badges: ^2.0.3
+  smooth_page_indicator: ^1.0.0+2
 
 dev_dependencies:
   flutter_test:
@@ -65,6 +66,8 @@ flutter:
     - assets/
     - assets/plants/
     - assets/elementaries/
+    - assets/logos/
+    - assets/images/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

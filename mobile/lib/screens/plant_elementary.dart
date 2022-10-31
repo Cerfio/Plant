@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:badges/badges.dart';
+// import 'package:badges/badges.dart';
 
 class PlantElementary extends StatelessWidget {
   PlantElementary({super.key});

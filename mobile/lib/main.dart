@@ -3,6 +3,7 @@ import 'package:plant_iot_epitech/screens/introduction.dart';
 import 'package:plant_iot_epitech/screens/plant.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(const MyApp());
 }
 
@@ -17,7 +18,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const Introduction(),
+      home: const Splash(),
     );
   }
 }

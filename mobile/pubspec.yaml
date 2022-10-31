@@ -43,6 +43,7 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  flutter_native_splash: ^2.2.12
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
@@ -68,6 +69,7 @@ flutter:
     - assets/elementaries/
     - assets/logos/
     - assets/images/
+    - assets/splash/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
@@ -94,3 +96,15 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
+
+# Flutter Native splash screen
+flutter_native_splash:
+  color: "#F9FAF7"
+  background_image: assets/splash/launch.png
+  android: true
+  ios: true
+  web: false
+
+  android_12:
+    color: "#F9FAF7"
+    image: assets/splash/launch.png

@@ -21,18 +21,20 @@ class _IntroductionState extends State<Introduction> {
     return Scaffold(
       body: Stack(
         children: [
-          PageView(
-            controller: _controller,
-            onPageChanged: (index) => {
-              setState(() {
-                isLastPage = index == 2;
-              })
-            },
-            children: <Widget>[
-              _First(logo: logo),
-              _Second(logo: logo),
-              _Third(logo: logo),
-            ],
+          SafeArea(
+            child: PageView(
+              controller: _controller,
+              onPageChanged: (index) => {
+                setState(() {
+                  isLastPage = index == 2;
+                })
+              },
+              children: <Widget>[
+                _First(logo: logo),
+                _Second(logo: logo),
+                _Third(logo: logo),
+              ],
+            ),
           ),
           Container(
             alignment: const Alignment(0, 1),
@@ -65,23 +67,18 @@ class _IntroductionState extends State<Introduction> {
                     height: 40,
                     child: ElevatedButton(
                       onPressed: () {
-                        isLastPage
-                            ? Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) {
-                                    return const Register();
-                                  },
-                                ),
-                              )
-                            : _controller.nextPage(
-                                duration: const Duration(milliseconds: 500),
-                                curve: Curves.easeInOut,
-                              );
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) {
+                              return const Register();
+                            },
+                          ),
+                        );
                       },
                       style: ButtonStyle(
                         backgroundColor: MaterialStateProperty.all<Color>(
-                          const Color(0xff6B4EFF),
+                          const Color(0xffC9DBBD),
                         ),
                         shape:
                             MaterialStateProperty.all<RoundedRectangleBorder>(
@@ -133,7 +130,7 @@ class _First extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 500,
+      height: MediaQuery.of(context).size.height,
       color: const Color(0xffF9FAF7),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,

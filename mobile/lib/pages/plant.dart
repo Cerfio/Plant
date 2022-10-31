@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:plant_iot_epitech/ui/cards/card_lengthen.dart';
 import 'package:plant_iot_epitech/ui/cards_elementary/card_elementary_age.dart';
 import 'package:plant_iot_epitech/ui/cards_elementary/card_elementary_battery.dart';
 import 'package:plant_iot_epitech/ui/cards_elementary/card_elementary_humidity_air.dart';
@@ -11,87 +12,30 @@ import 'package:plant_iot_epitech/ui/cards_elementary/card_elementary_water.dart
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
 class Plant extends StatelessWidget {
-  const Plant({super.key});
+  Plant({super.key});
+  //Don't forgert to move to another file
+  final Widget tomatoPlant = SvgPicture.asset('assets/plants/tomato_plant.svg',
+      semanticsLabel: 'Palm leaf', fit: BoxFit.cover);
 
   @override
   Widget build(BuildContext context) {
-    final Widget tomatoPlant = SvgPicture.asset(
-        'assets/plants/tomato_plant.svg',
-        semanticsLabel: 'Palm leaf',
-        fit: BoxFit.cover);
     return Container(
       height: MediaQuery.of(context).size.height,
       width: MediaQuery.of(context).size.width,
       color: const Color(0xffC9DBBD),
       child: SlidingUpPanel(
         parallaxEnabled: true,
-        parallaxOffset: 0.5,
+        panelSnapping: true,
         borderRadius: const BorderRadius.only(
-            topLeft: Radius.circular(1000), topRight: Radius.circular(1000)),
+            topLeft: Radius.circular(45), topRight: Radius.circular(45)),
         maxHeight: MediaQuery.of(context).size.height - 10,
-        minHeight: 500,
-        panel: Container(
-          padding: EdgeInsetsGeometry.lerp(const EdgeInsets.only(top: 20),
-              const EdgeInsets.only(top: 20), 0.5),
-          decoration: const BoxDecoration(
-            color: Color(0xffF9FAF7),
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(30.0),
-              topRight: Radius.circular(30.0),
+        minHeight: 480,
+        panelBuilder: (ScrollController sc) => Container(
+            decoration: const BoxDecoration(
+              color: Color(0xffF9FAF7),
+              borderRadius: BorderRadius.all(Radius.circular(32)),
             ),
-          ),
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SizedBox(
-                  child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Container(
-                          width: 80,
-                          height: 10,
-                          color: const Color(0xffE3E5E5),
-                        ),
-                      ]),
-                ),
-                const SizedBox(
-                  height: 30,
-                ),
-                const Text(
-                  "Care recommendations",
-                  style: TextStyle(
-                    fontSize: 24,
-                    fontWeight: FontWeight.w600,
-                    color: Color(0xff8BA07E),
-                  ),
-                ),
-                Expanded(
-                  child: GridView.count(
-                    padding: const EdgeInsets.only(top: 16),
-                    crossAxisCount: 2,
-                    mainAxisSpacing: 20,
-                    crossAxisSpacing: 20,
-                    children: const [
-                      CardElementaryWater(),
-                      CardElementaryTemperature(),
-                      CardElementaryHumidityAir(),
-                      CardElementaryHumiditySoil(),
-                      CardElementaryLight(),
-                      CardElementaryPressure(),
-                      CardElementaryAge(),
-                      CardElementaryBattery(),
-                      SizedBox(
-                        height: 1,
-                      )
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ),
+            child: _scrollingList(sc, context)),
         body: Center(
           child: SafeArea(
             child: Row(
@@ -116,6 +60,119 @@ class Plant extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+
+  Widget _scrollingList(ScrollController sc, BuildContext context) {
+    return ListView(
+      padding: const EdgeInsets.only(top: 60, bottom: 130),
+      controller: sc,
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Container(
+              width: 100,
+              height: 8,
+              decoration: BoxDecoration(
+                  color: Colors.grey[300],
+                  borderRadius: const BorderRadius.all(Radius.circular(12.0))),
+            ),
+          ],
+        ),
+        const SizedBox(height: 20),
+        const Text(
+          "Care recommendations",
+          style: TextStyle(
+            fontSize: 24,
+            fontWeight: FontWeight.w600,
+            color: Color(0xff8BA07E),
+          ),
+          textAlign: TextAlign.center,
+        ),
+        const SizedBox(height: 20),
+        SizedBox(
+          width: MediaQuery.of(context).size.width,
+          height: 180,
+          child: Row(
+            children: const [
+              SizedBox(width: 20),
+              CardElementaryWater(),
+              SizedBox(width: 20),
+              CardElementaryTemperature(),
+              SizedBox(width: 20),
+            ],
+          ),
+        ),
+        const SizedBox(height: 20),
+        SizedBox(
+          width: MediaQuery.of(context).size.width,
+          height: 180,
+          child: Row(
+            children: const [
+              SizedBox(width: 20),
+              CardElementaryHumidityAir(),
+              SizedBox(width: 20),
+              CardElementaryHumiditySoil(),
+              SizedBox(width: 20),
+            ],
+          ),
+        ),
+        const SizedBox(height: 20),
+        SizedBox(
+          width: MediaQuery.of(context).size.width,
+          height: 180,
+          child: Row(
+            children: const [
+              SizedBox(width: 20),
+              CardElementaryLight(),
+              SizedBox(width: 20),
+              CardElementaryBattery(),
+              SizedBox(width: 20),
+            ],
+          ),
+        ),
+        const SizedBox(height: 20),
+        SizedBox(
+          width: MediaQuery.of(context).size.width,
+          height: 180,
+          child: Row(
+            children: const [
+              SizedBox(width: 20),
+              CardElementaryPressure(),
+              SizedBox(width: 20),
+              CardElementaryAge(),
+              SizedBox(width: 20),
+            ],
+          ),
+        ),
+        const SizedBox(height: 20),
+        Padding(
+          padding: const EdgeInsets.only(left: 20, right: 20),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              const CardLengthen(title: "Nickname", subtitle: "Aznard"),
+              const SizedBox(height: 20),
+              const CardLengthen(title: "More Informations"),
+              const SizedBox(height: 20),
+              const CardLengthen(title: "Plant Care"),
+              const SizedBox(height: 20),
+              TextButton(
+                onPressed: () {},
+                child: const Text(
+                  "Unlink Plant",
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w600,
+                    color: Color(0xff980A0A),
+                  ),
+                ),
+              )
+            ],
+          ),
+        ),
+      ],
     );
   }
 }

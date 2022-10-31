@@ -1,13 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:plant_iot_epitech/screens/splash.dart';
 import 'package:plant_iot_epitech/screens/introduction.dart';
 import 'package:plant_iot_epitech/screens/plant.dart';
-import 'package:plant_iot_epitech/ui/cards_elementary/card_elementary_humidity_air.dart';
-import 'package:plant_iot_epitech/ui/cards_elementary/card_elementary_humidity_soil.dart';
-import 'package:plant_iot_epitech/ui/cards_elementary/card_elementary_light.dart';
-import 'package:plant_iot_epitech/ui/cards_elementary/card_elementary_pressure.dart';
-import 'package:plant_iot_epitech/ui/cards_elementary/card_elementary_temperature.dart';
-import 'package:plant_iot_epitech/ui/cards_elementary/card_elementary_water.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -48,7 +41,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: const Plant(),
+      body: Plant(),
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
         items: const <BottomNavigationBarItem>[

@@ -2,15 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:plant_iot_epitech/screens/plant_elementary.dart';
 
 class CardElementaryBase extends StatelessWidget {
-  const CardElementaryBase(
-      {super.key,
-      required this.backgroundColor,
-      required this.titleColor,
-      required this.subtitleColor,
-      required this.iconColor,
-      required this.title,
-      required this.subtitle,
-      required this.icon});
+  const CardElementaryBase({
+    super.key,
+    required this.backgroundColor,
+    required this.titleColor,
+    required this.subtitleColor,
+    required this.iconColor,
+    required this.title,
+    required this.subtitle,
+    required this.icon,
+    required this.callback,
+  });
   final Color backgroundColor;
   final Color titleColor;
   final Color subtitleColor;
@@ -18,17 +20,14 @@ class CardElementaryBase extends StatelessWidget {
   final String title;
   final String subtitle;
   final IconData icon;
+  final Function callback;
 
   @override
   Widget build(BuildContext context) {
     return Expanded(
       child: GestureDetector(
         onTap: () {
-          Navigator.of(context).push(
-            MaterialPageRoute(
-              builder: (context) => PlantElementary(),
-            ),
-          );
+          callback();
         },
         child: Card(
           elevation: 0,

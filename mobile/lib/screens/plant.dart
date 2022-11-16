@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:plant_iot_epitech/screens/plant_elementary.dart';
 import 'package:plant_iot_epitech/ui/cards/card_lengthen.dart';
 import 'package:plant_iot_epitech/ui/cards_elementary/card_elementary_age.dart';
 import 'package:plant_iot_epitech/ui/cards_elementary/card_elementary_battery.dart';
@@ -29,7 +30,7 @@ class Plant extends StatelessWidget {
         borderRadius: const BorderRadius.only(
             topLeft: Radius.circular(45), topRight: Radius.circular(45)),
         maxHeight: MediaQuery.of(context).size.height - 10,
-        minHeight: 480,
+        minHeight: 520,
         panelBuilder: (ScrollController sc) => Container(
             decoration: const BoxDecoration(
               color: Color(0xffF9FAF7),
@@ -64,8 +65,16 @@ class Plant extends StatelessWidget {
   }
 
   Widget _scrollingList(ScrollController sc, BuildContext context) {
+    void openCardElementary(int index) {
+      Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (context) => PlantElementary(defaultChip: index),
+        ),
+      );
+    }
+
     return ListView(
-      padding: const EdgeInsets.only(top: 60, bottom: 130),
+      padding: const EdgeInsets.only(top: 35, bottom: 130),
       controller: sc,
       children: [
         Row(
@@ -95,12 +104,12 @@ class Plant extends StatelessWidget {
           width: MediaQuery.of(context).size.width,
           height: 180,
           child: Row(
-            children: const [
-              SizedBox(width: 20),
-              CardElementaryWater(),
-              SizedBox(width: 20),
-              CardElementaryTemperature(),
-              SizedBox(width: 20),
+            children: [
+              const SizedBox(width: 20),
+              CardElementaryWater(callback: () => openCardElementary(0)),
+              const SizedBox(width: 20),
+              CardElementaryTemperature(callback: () => openCardElementary(1)),
+              const SizedBox(width: 20),
             ],
           ),
         ),
@@ -109,12 +118,12 @@ class Plant extends StatelessWidget {
           width: MediaQuery.of(context).size.width,
           height: 180,
           child: Row(
-            children: const [
-              SizedBox(width: 20),
-              CardElementaryHumidityAir(),
-              SizedBox(width: 20),
-              CardElementaryHumiditySoil(),
-              SizedBox(width: 20),
+            children: [
+              const SizedBox(width: 20),
+              CardElementaryHumidityAir(callback: () => openCardElementary(2)),
+              const SizedBox(width: 20),
+              CardElementaryHumiditySoil(callback: () => openCardElementary(3)),
+              const SizedBox(width: 20),
             ],
           ),
         ),
@@ -123,12 +132,12 @@ class Plant extends StatelessWidget {
           width: MediaQuery.of(context).size.width,
           height: 180,
           child: Row(
-            children: const [
-              SizedBox(width: 20),
-              CardElementaryLight(),
-              SizedBox(width: 20),
-              CardElementaryBattery(),
-              SizedBox(width: 20),
+            children: [
+              const SizedBox(width: 20),
+              CardElementaryLight(callback: () => openCardElementary(4)),
+              const SizedBox(width: 20),
+              CardElementaryBattery(callback: () => openCardElementary(5)),
+              const SizedBox(width: 20),
             ],
           ),
         ),
@@ -137,12 +146,12 @@ class Plant extends StatelessWidget {
           width: MediaQuery.of(context).size.width,
           height: 180,
           child: Row(
-            children: const [
-              SizedBox(width: 20),
-              CardElementaryPressure(),
-              SizedBox(width: 20),
-              CardElementaryAge(),
-              SizedBox(width: 20),
+            children: [
+              const SizedBox(width: 20),
+              CardElementaryPressure(callback: () => openCardElementary(6)),
+              const SizedBox(width: 20),
+              CardElementaryAge(callback: () => openCardElementary(7)),
+              const SizedBox(width: 20),
             ],
           ),
         ),
@@ -152,6 +161,17 @@ class Plant extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
+              const SizedBox(height: 20),
+              const Text(
+                "Plant Parameter",
+                style: TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.w600,
+                  color: Color(0xff8BA07E),
+                ),
+                textAlign: TextAlign.center,
+              ),
+              const SizedBox(height: 20),
               const CardLengthen(title: "Nickname", subtitle: "Aznard"),
               const SizedBox(height: 20),
               const CardLengthen(title: "More Informations"),

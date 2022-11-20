@@ -2,18 +2,16 @@ import 'package:flutter/material.dart';
 
 class CardLengthen extends StatelessWidget {
   const CardLengthen(
-      {super.key, required this.title, this.callback, this.subtitle});
+      {super.key, required this.title, required this.callback, this.subtitle});
   final String title;
-  final Function()? callback;
+  final Function() callback;
   final String? subtitle;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        if (callback != null) {
-          callback!();
-        }
+        callback();
       },
       child: Container(
         decoration: const BoxDecoration(

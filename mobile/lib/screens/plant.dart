@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:plant_iot_epitech/screens/plant_elementary.dart';
+import 'package:plant_iot_epitech/screens/plant_nickname.dart';
 import 'package:plant_iot_epitech/ui/cards/card_lengthen.dart';
 import 'package:plant_iot_epitech/ui/cards_elementary/card_elementary_age.dart';
 import 'package:plant_iot_epitech/ui/cards_elementary/card_elementary_battery.dart';
@@ -17,6 +18,7 @@ class Plant extends StatelessWidget {
   //Don't forgert to move to another file
   final Widget tomatoPlant = SvgPicture.asset('assets/plants/tomato_plant.svg',
       semanticsLabel: 'Palm leaf', fit: BoxFit.cover);
+  String nickname = "Aznard";
 
   @override
   Widget build(BuildContext context) {
@@ -73,6 +75,36 @@ class Plant extends StatelessWidget {
       );
     }
 
+    void callbackNickname() {}
+
+    void redirectToPageNickname() {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => PlantNickname(
+            plantNickname: nickname,
+            plantNicknameCallback: () => callbackNickname(),
+          ),
+        ),
+      );
+    }
+
+    void redirectTopPageMoreInfos() {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => const PlantElementary(defaultChip: 0)),
+      );
+    }
+
+    void redirectToPagePlantCare() {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => const PlantElementary(defaultChip: 0)),
+      );
+    }
+
     return ListView(
       padding: const EdgeInsets.only(top: 35, bottom: 130),
       controller: sc,
@@ -106,77 +138,93 @@ class Plant extends StatelessWidget {
           child: Row(
             children: [
               const SizedBox(width: 20),
-              CardElementaryWater(callback: () => openCardElementary(0)),
+              CardElementaryWater(
+                callback: () => openCardElementary(0),
+              ),
               const SizedBox(width: 20),
-              CardElementaryTemperature(callback: () => openCardElementary(1)),
+              CardElementaryTemperature(
+                callback: () => openCardElementary(1),
+              ),
               const SizedBox(width: 20),
             ],
           ),
         ),
-        const SizedBox(height: 20),
+        const SizedBox(height: 30),
         SizedBox(
           width: MediaQuery.of(context).size.width,
           height: 180,
           child: Row(
             children: [
               const SizedBox(width: 20),
-              CardElementaryHumidityAir(callback: () => openCardElementary(2)),
+              CardElementaryHumidityAir(
+                callback: () => openCardElementary(2),
+              ),
               const SizedBox(width: 20),
-              CardElementaryHumiditySoil(callback: () => openCardElementary(3)),
+              CardElementaryHumiditySoil(
+                callback: () => openCardElementary(3),
+              ),
               const SizedBox(width: 20),
             ],
           ),
         ),
-        const SizedBox(height: 20),
+        const SizedBox(height: 30),
         SizedBox(
           width: MediaQuery.of(context).size.width,
           height: 180,
           child: Row(
             children: [
               const SizedBox(width: 20),
-              CardElementaryLight(callback: () => openCardElementary(4)),
+              CardElementaryLight(
+                callback: () => openCardElementary(4),
+              ),
               const SizedBox(width: 20),
-              CardElementaryBattery(callback: () => openCardElementary(5)),
+              CardElementaryBattery(
+                callback: () => openCardElementary(5),
+              ),
               const SizedBox(width: 20),
             ],
           ),
         ),
-        const SizedBox(height: 20),
+        const SizedBox(height: 30),
         SizedBox(
           width: MediaQuery.of(context).size.width,
           height: 180,
           child: Row(
             children: [
               const SizedBox(width: 20),
-              CardElementaryPressure(callback: () => openCardElementary(6)),
+              CardElementaryPressure(
+                callback: () => openCardElementary(6),
+              ),
               const SizedBox(width: 20),
-              CardElementaryAge(callback: () => openCardElementary(7)),
+              CardElementaryAge(
+                callback: () => openCardElementary(7),
+              ),
               const SizedBox(width: 20),
             ],
           ),
         ),
-        const SizedBox(height: 20),
+        const SizedBox(height: 30),
         Padding(
           padding: const EdgeInsets.only(left: 20, right: 20),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               const SizedBox(height: 20),
-              const Text(
-                "Plant Parameter",
-                style: TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.w600,
-                  color: Color(0xff8BA07E),
-                ),
-                textAlign: TextAlign.center,
+              CardLengthen(
+                title: "Nickname",
+                subtitle: nickname,
+                callback: () => redirectToPageNickname(),
               ),
               const SizedBox(height: 20),
-              const CardLengthen(title: "Nickname", subtitle: "Aznard"),
+              CardLengthen(
+                title: "More Informations",
+                callback: () => redirectTopPageMoreInfos(),
+              ),
               const SizedBox(height: 20),
-              const CardLengthen(title: "More Informations"),
-              const SizedBox(height: 20),
-              const CardLengthen(title: "Plant Care"),
+              CardLengthen(
+                title: "Plant Care",
+                callback: () => redirectTopPageMoreInfos(),
+              ),
               const SizedBox(height: 20),
               TextButton(
                 onPressed: () {},

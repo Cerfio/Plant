@@ -19,7 +19,7 @@ class Plant extends StatelessWidget {
   //Don't forgert to move to another file
   final Widget tomatoPlant = SvgPicture.asset('assets/plants/tomato_plant.svg',
       semanticsLabel: 'Palm leaf', fit: BoxFit.cover);
-  String nickname = "Aznard";
+  final String nickname = "Aznard";
 
   @override
   Widget build(BuildContext context) {

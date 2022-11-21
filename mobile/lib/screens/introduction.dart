@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:plant_iot_epitech/screens/register.dart';
+import 'package:plant_iot_epitech/screens/sign_up.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class Introduction extends StatefulWidget {
@@ -71,7 +71,7 @@ class _IntroductionState extends State<Introduction> {
                           context,
                           MaterialPageRoute(
                             builder: (context) {
-                              return const Register();
+                              return const SignUp();
                             },
                           ),
                         );

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:plant_iot_epitech/screens/sign_in.dart';
+import 'package:plant_iot_epitech/screens/sign_up.dart';
 import 'package:plant_iot_epitech/screens/splash.dart';
 import 'package:plant_iot_epitech/screens/plant.dart';
 
@@ -18,7 +20,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const Splash(),
+      home: const SignIn(),
     );
   }
 }

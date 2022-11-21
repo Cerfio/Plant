@@ -35,7 +35,7 @@ class _PlantElementaryState extends State<PlantElementary> {
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _controller.animateTo(list[currentChip]["move"] as double,
-          duration: const Duration(milliseconds: 700), curve: Curves.ease);
+          duration: const Duration(milliseconds: 300), curve: Curves.ease);
     });
   }
 

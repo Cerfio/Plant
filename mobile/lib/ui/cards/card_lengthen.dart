@@ -2,10 +2,15 @@ import 'package:flutter/material.dart';
 
 class CardLengthen extends StatelessWidget {
   const CardLengthen(
-      {super.key, required this.title, required this.callback, this.subtitle});
+      {super.key,
+      required this.title,
+      required this.callback,
+      this.displayChevron = true,
+      this.subtitle});
   final String title;
   final Function() callback;
   final String? subtitle;
+  final bool displayChevron;
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +24,7 @@ class CardLengthen extends StatelessWidget {
           borderRadius: BorderRadius.all(Radius.circular(12.0)),
         ),
         height: 100,
-        width: 50,
+        width: double.infinity,
         child: Padding(
           padding: const EdgeInsets.only(left: 16, right: 16),
           child: Row(
@@ -46,7 +51,9 @@ class CardLengthen extends StatelessWidget {
                         )
                       : const SizedBox(),
                   const SizedBox(width: 20),
-                  const Icon(Icons.chevron_right, size: 30),
+                  displayChevron
+                      ? const Icon(Icons.chevron_right, size: 30)
+                      : const SizedBox(),
                 ],
               )
             ],

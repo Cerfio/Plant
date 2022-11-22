@@ -40,6 +40,7 @@ dependencies:
   badges: ^2.0.3
   smooth_page_indicator: ^1.0.0+2
   fl_chart: ^0.55.2
+  mobile_scanner: ^2.1.0
 
 dev_dependencies:
   flutter_test:
@@ -71,6 +72,7 @@ flutter:
     - assets/logos/
     - assets/images/
     - assets/splash/
+    - assets/icons/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

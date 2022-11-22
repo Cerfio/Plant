@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:plant_iot_epitech/screens/plant.dart';
+import 'package:plant_iot_epitech/screens/read_qr_code.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -17,7 +18,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(),
+      home: const ReadQrCode(),
     );
   }
 }

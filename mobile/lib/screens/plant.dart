@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:plant_iot_epitech/screens/plant_elementary.dart';
+import 'package:plant_iot_epitech/screens/plant_more_info.dart';
 import 'package:plant_iot_epitech/screens/plant_nickname.dart';
 import 'package:plant_iot_epitech/ui/cards/card_lengthen.dart';
 import 'package:plant_iot_epitech/ui/cards_elementary/card_elementary_age.dart';
@@ -18,7 +19,7 @@ class Plant extends StatelessWidget {
   //Don't forgert to move to another file
   final Widget tomatoPlant = SvgPicture.asset('assets/plants/tomato_plant.svg',
       semanticsLabel: 'Palm leaf', fit: BoxFit.cover);
-  String nickname = "Aznard";
+  final String nickname = "Aznard";
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +31,9 @@ class Plant extends StatelessWidget {
         parallaxEnabled: true,
         panelSnapping: true,
         borderRadius: const BorderRadius.only(
-            topLeft: Radius.circular(45), topRight: Radius.circular(45)),
+          topLeft: Radius.circular(45),
+          topRight: Radius.circular(45),
+        ),
         maxHeight: MediaQuery.of(context).size.height - 10,
         minHeight: 520,
         panelBuilder: (ScrollController sc) => Container(
@@ -92,8 +95,7 @@ class Plant extends StatelessWidget {
     void redirectTopPageMoreInfos() {
       Navigator.push(
         context,
-        MaterialPageRoute(
-            builder: (context) => const PlantElementary(defaultChip: 0)),
+        MaterialPageRoute(builder: (context) => const PlantMoreInfo()),
       );
     }
 

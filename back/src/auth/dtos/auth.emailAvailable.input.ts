@@ -6,6 +6,6 @@ export const emailAvailableQuerySchema = {
   type: 'object',
   required: ['email'],
   properties: {
-    email: { type: 'string' },
+    email: { type: 'string', format: 'email' },
   },
 };

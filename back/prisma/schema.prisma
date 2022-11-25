@@ -16,9 +16,10 @@ model User {
   email     String       @unique
   firstname String
   lastname  String
-  password  String?
+  password  String
   language  LanguageEnum
   profile   Profile?
+  plants    Plant[]
   createdAt DateTime     @default(now())
   updatedAt DateTime     @updatedAt
 }
@@ -34,7 +35,49 @@ model Profile {
   updatedAt    DateTime @updatedAt
 }
 
+model Plant {
+  id           String      @id @default(uuid())
+  name         String
+  serialNumber String
+  macAddress   String
+  isEnable     Boolean
+  user         User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId       String
+  datas        PlantData[]
+  createdAt    DateTime    @default(now())
+  updatedAt    DateTime    @updatedAt
+}
+
+model PlantData {
+  id           String   @id @default(uuid())
+  plant        Plant    @relation(fields: [plantId], references: [id], onDelete: Cascade)
+  plantId      String
+  temperature  Float
+  humidityAir  Float
+  humiditySoil Float
+  pressure     Float
+  battery      Float
+  light        Float
+  water        Float
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model Notification {
+  id        String           @id @default(uuid())
+  isRead    Boolean
+  type      NotificationType
+  moreInfo  Json?
+  createdAt DateTime         @default(now())
+  updatedAt DateTime         @updatedAt
+}
+
 enum LanguageEnum {
   EN
   FR
+}
+
+enum NotificationType {
+  NEW_PLANT
+  WATERING
 }

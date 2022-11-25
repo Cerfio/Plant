@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:plant_iot_epitech/providers/plant_provider.dart';
 import 'package:plant_iot_epitech/screens/read_qr_code.dart';
 import 'package:plant_iot_epitech/ui/cards/plant_status.dart';
+import 'package:provider/provider.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
 class Home extends StatefulWidget {
@@ -115,7 +117,8 @@ class _HomeState extends State<Home> {
                     margin: const EdgeInsets.only(top: 20),
                     width: 106,
                     height: 106,
-                    child: Image.asset('assets/plants/smiling-flower-plant.png'),
+                    child:
+                        Image.asset('assets/plants/smiling-flower-plant.png'),
                   ),
                   SizedBox(
                     width: 117,
@@ -133,6 +136,9 @@ class _HomeState extends State<Home> {
 
   Widget _scrollingList(
       ScrollController sc, PanelController pc, BuildContext context) {
+    Future<PlantsOutput> plants =
+        Provider.of<PlantProvider>(context, listen: false).getPlants();
+
     return Padding(
       padding: const EdgeInsets.only(bottom: 52),
       child: ListView(
@@ -187,64 +193,37 @@ class _HomeState extends State<Home> {
               ),
             ],
           ),
-          GridView.count(
-            physics: const NeverScrollableScrollPhysics(),
-            childAspectRatio: (MediaQuery.of(context).size.width / 2 / 280),
-            mainAxisSpacing: 24,
-            crossAxisSpacing: 24,
-            shrinkWrap: true,
-            crossAxisCount: 2,
-            children: const <Widget>[
-              PlantStatus(
-                name: 'Tomato',
-                type: '1',
-                waterStatus: 0.33,
-                lightStatus: 0.66,
-                temperatureStatus: 1,
-              ),
-              PlantStatus(
-                name: 'Persil',
-                type: '2',
-                waterStatus: 0.66,
-                lightStatus: 0.67,
-                temperatureStatus: 1,
-              ),
-              PlantStatus(
-                name: 'Strawberry',
-                type: '3',
-                waterStatus: 0.99,
-                lightStatus: 0.67,
-                temperatureStatus: 1,
-              ),
-              PlantStatus(
-                name: 'Sunflower',
-                type: '4',
-                waterStatus: 0.99,
-                lightStatus: 0.67,
-                temperatureStatus: 1,
-              ),
-              PlantStatus(
-                name: 'Sunflower',
-                type: '4',
-                waterStatus: 0.99,
-                lightStatus: 0.67,
-                temperatureStatus: 1,
-              ),
-              PlantStatus(
-                name: 'Sunflower',
-                type: '4',
-                waterStatus: 0.99,
-                lightStatus: 0.67,
-                temperatureStatus: 1,
-              ),
-              PlantStatus(
-                name: 'Sunflower',
-                type: '4',
-                waterStatus: 0.99,
-                lightStatus: 0.67,
-                temperatureStatus: 1,
-              ),
-            ],
+          FutureBuilder(
+            future: plants,
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                return GridView.builder(
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    childAspectRatio:
+                        (MediaQuery.of(context).size.width / 2 / 280),
+                    mainAxisSpacing: 24,
+                    crossAxisSpacing: 24,
+                  ),
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemCount: snapshot.data!.plants?.length,
+                  shrinkWrap: true,
+                  itemBuilder: (context, index) {
+                    return PlantStatus(
+                      name: snapshot.data!.plants![index].name,
+                      type: '1',
+                      waterStatus: snapshot.data!.plants![index].datas[0].humiditySoil,
+                      lightStatus: snapshot.data!.plants![index].datas[0].light,
+                      temperatureStatus: snapshot.data!.plants![index].datas[0].light,
+                    );
+                  },
+                );
+              } else {
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              }
+            },
           ),
         ],
       ),

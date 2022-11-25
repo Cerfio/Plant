@@ -10,7 +10,7 @@ class UserPreferences {
 
   Future<void> setUserFirstTime() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setBool('userFirstTime', true);
+    prefs.setBool('userFirstTime', false);
   }
 
   Future<void> setUserToken(String token) async {

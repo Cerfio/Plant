@@ -46,6 +46,7 @@ class AuthProvider with ChangeNotifier {
 
     if (response.statusCode == 200) {
       _registeredInStatus = Status.registered;
+      UserPreferences().setUserFirstTime();
       notifyListeners();
       return {
         'status': true,
@@ -82,6 +83,7 @@ class AuthProvider with ChangeNotifier {
     if (response.statusCode == 200) {
       _registeredInStatus = Status.loggedIn;
       UserPreferences().setUserToken(responseData['message']);
+      UserPreferences().setUserFirstTime();
       notifyListeners();
       return {
         'status': true,

@@ -5,9 +5,9 @@ import 'package:plant_iot_epitech/ui/bars/icon_progress_bar.dart';
 class PlantStatus extends StatelessWidget {
   final String name;
   final String type;
-  final double waterStatus;
-  final double lightStatus;
-  final double temperatureStatus;
+  final int waterStatus;
+  final int lightStatus;
+  final int temperatureStatus;
 
   const PlantStatus({
     super.key,
@@ -17,6 +17,17 @@ class PlantStatus extends StatelessWidget {
     required this.lightStatus,
     required this.temperatureStatus,
   });
+
+  double convertTemperatureStatus() {
+    if (temperatureStatus >= 30) {
+      return 1.0;
+    } else if (temperatureStatus < 30 && temperatureStatus >= 20) {
+      return 0.66;
+    } else if (temperatureStatus < 20 && temperatureStatus >= 10) {
+      return 0.33;
+    }
+    return 0.0;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -61,17 +72,17 @@ class PlantStatus extends StatelessWidget {
             const SizedBox(height: 8),
             IconProgressBar(
               iconName: 'water-droplet',
-              value: waterStatus,
+              value: waterStatus * 100 / 1024 / 100,
             ),
             const SizedBox(height: 8),
             IconProgressBar(
               iconName: 'sun',
-              value: lightStatus,
+              value: lightStatus * 100 / 1024 / 100,
             ),
             const SizedBox(height: 8),
             IconProgressBar(
               iconName: 'thermometer',
-              value: temperatureStatus,
+              value: convertTemperatureStatus(),
             ),
           ],
         ),

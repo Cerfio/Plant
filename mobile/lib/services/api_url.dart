@@ -4,4 +4,5 @@ class ApiURL {
   static const String signIn = '$baseUrl/auth/signin';
   static const String signUp = '$baseUrl/auth/signup';
   
+  static const String plant = '$baseUrl/plant';
 }

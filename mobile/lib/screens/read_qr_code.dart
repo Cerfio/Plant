@@ -22,13 +22,6 @@ class _ReadQrCodeState extends State<ReadQrCode> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBar(
-      //   backgroundColor: const Color(0xffF9FAF7),
-      //   elevation: 0,
-      //   iconTheme: const IconThemeData(
-      //     color: Color(0xff708265), //change your color here
-      //   ),
-      // ),
       body: SafeArea(
         child: Container(
           color: const Color(0xffF9FAF7),

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:plant_iot_epitech/screens/introduction.dart';
 
-
 class Splash extends StatefulWidget {
   const Splash({super.key});
 
@@ -11,8 +10,11 @@ class Splash extends StatefulWidget {
 }
 
 class _SplashState extends State<Splash> with TickerProviderStateMixin {
-  final logo = SvgPicture.asset('assets/logos/plant.svg',
-      semanticsLabel: 'plant logo', fit: BoxFit.contain);
+  final logo = SvgPicture.asset(
+    'assets/logos/plant.svg',
+    semanticsLabel: 'plant logo',
+    fit: BoxFit.contain,
+  );
 
   late final AnimationController _controller;
   late final CurvedAnimation _animation;

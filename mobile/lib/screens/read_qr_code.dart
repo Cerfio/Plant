@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
+import 'package:plant_iot_epitech/screens/plant_created.dart';
 
 class ReadQrCode extends StatefulWidget {
   const ReadQrCode({super.key});
@@ -10,21 +11,24 @@ class ReadQrCode extends StatefulWidget {
 }
 
 class _ReadQrCodeState extends State<ReadQrCode> {
-  final Widget logo = SvgPicture.asset('assets/logos/plant.svg',
-      semanticsLabel: 'plant', fit: BoxFit.contain);
+  final Widget logo = SvgPicture.asset(
+    'assets/logos/plant.svg',
+    semanticsLabel: 'plant',
+    fit: BoxFit.contain,
+  );
 
   MobileScannerController cameraController = MobileScannerController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: const Color(0xffF9FAF7),
-        elevation: 0,
-        iconTheme: const IconThemeData(
-          color: Color(0xff708265), //change your color here
-        ),
-      ),
+      // appBar: AppBar(
+      //   backgroundColor: const Color(0xffF9FAF7),
+      //   elevation: 0,
+      //   iconTheme: const IconThemeData(
+      //     color: Color(0xff708265), //change your color here
+      //   ),
+      // ),
       body: SafeArea(
         child: Container(
           color: const Color(0xffF9FAF7),
@@ -35,9 +39,27 @@ class _ReadQrCodeState extends State<ReadQrCode> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
                 SizedBox(
-                  width: 288,
-                  height: 80,
-                  child: logo,
+                  width: MediaQuery.of(context).size.width,
+                  child: Stack(
+                    alignment: Alignment.center,
+                    children: <Widget>[
+                      Positioned(
+                        left: 10,
+                        child: IconButton(
+                          onPressed: () => Navigator.pop(context),
+                          icon: const Icon(
+                            Icons.arrow_back,
+                            color: Color(0xff708265),
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        width: 288,
+                        height: 80,
+                        child: logo,
+                      ),
+                    ],
+                  ),
                 ),
                 const SizedBox(height: 24),
                 const Text(
@@ -77,7 +99,16 @@ class _ReadQrCodeState extends State<ReadQrCode> {
                 ),
                 const SizedBox(height: 24),
                 ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) {
+                          return const PlantCreated();
+                        },
+                      ),
+                    );
+                  },
                   style: ButtonStyle(
                     backgroundColor: MaterialStateProperty.all<Color>(
                       const Color(0xffC9DBBD),

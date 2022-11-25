@@ -11,8 +11,11 @@ class Introduction extends StatefulWidget {
 }
 
 class _IntroductionState extends State<Introduction> {
-  final Widget logo = SvgPicture.asset('assets/logos/plant-logo.svg',
-      semanticsLabel: 'plant-logo', fit: BoxFit.contain);
+  final Widget logo = SvgPicture.asset(
+    'assets/logos/plant-logo.svg',
+    semanticsLabel: 'plant-logo',
+    fit: BoxFit.contain,
+  );
   final PageController _controller = PageController();
   bool isLastPage = false;
 
@@ -124,8 +127,11 @@ class _IntroductionState extends State<Introduction> {
 
 class _First extends StatelessWidget {
   final Widget logo;
-  final Widget image = SvgPicture.asset('assets/images/1.svg',
-      semanticsLabel: 'image-1', fit: BoxFit.contain);
+  final Widget image = SvgPicture.asset(
+    'assets/images/1.svg',
+    semanticsLabel: 'image-1',
+    fit: BoxFit.contain,
+  );
 
   _First({required this.logo, Key? key}) : super(key: key);
 
@@ -191,8 +197,11 @@ class _First extends StatelessWidget {
 
 class _Second extends StatelessWidget {
   final Widget logo;
-  final image = SvgPicture.asset('assets/images/2.svg',
-      semanticsLabel: 'image-2', fit: BoxFit.cover);
+  final image = SvgPicture.asset(
+    'assets/images/2.svg',
+    semanticsLabel: 'image-2',
+    fit: BoxFit.cover,
+  );
   _Second({required this.logo, Key? key}) : super(key: key);
 
   @override
@@ -248,8 +257,11 @@ class _Second extends StatelessWidget {
 
 class _Third extends StatelessWidget {
   final Widget logo;
-  final image = SvgPicture.asset('assets/images/3.svg',
-      semanticsLabel: 'image-3', fit: BoxFit.cover);
+  final image = SvgPicture.asset(
+    'assets/images/3.svg',
+    semanticsLabel: 'image-3',
+    fit: BoxFit.cover,
+  );
   _Third({required this.logo, Key? key}) : super(key: key);
 
   @override

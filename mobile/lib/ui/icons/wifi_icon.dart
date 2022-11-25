@@ -7,7 +7,10 @@ class WifiIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SvgPicture.asset('assets/icons/$iconName.svg',
-      semanticsLabel: 'wifi-$iconName-icon', fit: BoxFit.contain);
+    return SvgPicture.asset(
+      'assets/icons/$iconName.svg',
+      semanticsLabel: 'wifi-$iconName-icon',
+      fit: BoxFit.contain,
+    );
   }
 }

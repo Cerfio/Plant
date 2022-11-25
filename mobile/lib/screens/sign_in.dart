@@ -13,13 +13,22 @@ class SignIn extends StatefulWidget {
 }
 
 class _SignInState extends State<SignIn> {
-  final Widget logo = SvgPicture.asset('assets/logos/plant.svg',
-      semanticsLabel: 'plant', fit: BoxFit.contain);
+  final Widget logo = SvgPicture.asset(
+    'assets/logos/plant.svg',
+    semanticsLabel: 'plant',
+    fit: BoxFit.contain,
+  );
   final _formKey = GlobalKey<FormState>();
-  final Widget googleLogo = SvgPicture.asset('assets/logos/google.svg',
-      semanticsLabel: 'google-logo', fit: BoxFit.contain);
-  final Widget facebookLogo = SvgPicture.asset('assets/logos/facebook.svg',
-      semanticsLabel: 'google-logo', fit: BoxFit.contain);
+  final Widget googleLogo = SvgPicture.asset(
+    'assets/logos/google.svg',
+    semanticsLabel: 'google-logo',
+    fit: BoxFit.contain,
+  );
+  final Widget facebookLogo = SvgPicture.asset(
+    'assets/logos/facebook.svg',
+    semanticsLabel: 'google-logo',
+    fit: BoxFit.contain,
+  );
 
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();

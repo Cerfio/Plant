@@ -22,8 +22,11 @@ class PlantElementary extends StatefulWidget {
 
 class _PlantElementaryState extends State<PlantElementary> {
   //Don't forgert to move to another file
-  final Widget waterIcon = SvgPicture.asset('assets/elementaries/water.svg',
-      semanticsLabel: 'Palm leaf', fit: BoxFit.cover);
+  final Widget waterIcon = SvgPicture.asset(
+    'assets/elementaries/water.svg',
+    semanticsLabel: 'Palm leaf',
+    fit: BoxFit.cover,
+  );
 
   int currentChip = 0;
   final ScrollController _controller = ScrollController();

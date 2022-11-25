@@ -12,8 +12,11 @@ class SignUp extends StatefulWidget {
 }
 
 class _SignUpState extends State<SignUp> {
-  final Widget logo = SvgPicture.asset('assets/logos/plant.svg',
-      semanticsLabel: 'plant', fit: BoxFit.contain);
+  final Widget logo = SvgPicture.asset(
+    'assets/logos/plant.svg',
+    semanticsLabel: 'plant',
+    fit: BoxFit.contain,
+  );
   final PageController _controller = PageController();
   final TextEditingController emailController = TextEditingController();
 
@@ -65,10 +68,16 @@ class _First extends StatefulWidget {
 
 class __FirstState extends State<_First> {
   final _formKey = GlobalKey<FormState>();
-  final Widget googleLogo = SvgPicture.asset('assets/logos/google.svg',
-      semanticsLabel: 'google-logo', fit: BoxFit.contain);
-  final Widget facebookLogo = SvgPicture.asset('assets/logos/facebook.svg',
-      semanticsLabel: 'google-logo', fit: BoxFit.contain);
+  final Widget googleLogo = SvgPicture.asset(
+    'assets/logos/google.svg',
+    semanticsLabel: 'google-logo',
+    fit: BoxFit.contain,
+  );
+  final Widget facebookLogo = SvgPicture.asset(
+    'assets/logos/facebook.svg',
+    semanticsLabel: 'google-logo',
+    fit: BoxFit.contain,
+  );
 
   @override
   Widget build(BuildContext context) {

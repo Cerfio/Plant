@@ -10,8 +10,11 @@ class ChooseWifi extends StatefulWidget {
 }
 
 class _ChooseWifiState extends State<ChooseWifi> {
-  final Widget logo = SvgPicture.asset('assets/logos/plant.svg',
-      semanticsLabel: 'plant', fit: BoxFit.contain);
+  final Widget logo = SvgPicture.asset(
+    'assets/logos/plant.svg',
+    semanticsLabel: 'plant',
+    fit: BoxFit.contain,
+  );
 
   @override
   Widget build(BuildContext context) {

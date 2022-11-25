@@ -17,8 +17,11 @@ import 'package:sliding_up_panel/sliding_up_panel.dart';
 class Plant extends StatelessWidget {
   Plant({super.key});
   //Don't forgert to move to another file
-  final Widget tomatoPlant = SvgPicture.asset('assets/plants/tomato_plant.svg',
-      semanticsLabel: 'Palm leaf', fit: BoxFit.cover);
+  final Widget tomatoPlant = SvgPicture.asset(
+    'assets/plants/tomato_plant.svg',
+    semanticsLabel: 'Palm leaf',
+    fit: BoxFit.cover,
+  );
   final String nickname = "Aznard";
 
   @override

@@ -14,8 +14,11 @@ class EnterWifiPassword extends StatefulWidget {
 }
 
 class _EnterWifiPasswordState extends State<EnterWifiPassword> {
-  final Widget logo = SvgPicture.asset('assets/logos/plant.svg',
-      semanticsLabel: 'plant', fit: BoxFit.contain);
+  final Widget logo = SvgPicture.asset(
+    'assets/logos/plant.svg',
+    semanticsLabel: 'plant',
+    fit: BoxFit.contain,
+  );
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _passwordController = TextEditingController();
   bool _passwordIsVisible = false;

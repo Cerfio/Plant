@@ -85,32 +85,7 @@ class _PlantCreatedState extends State<PlantCreated> {
                     ),
                   ],
                 ),
-              )
-              // Positioned(
-              //   width: MediaQuery.of(context).size.width,
-              //   top: MediaQuery.of(context).size.width *
-              //       0.30, //TRY TO CHANGE THIS **0.30** value to achieve your goal
-              //   child: Container(
-              //     margin: EdgeInsets.all(16.0),
-              //     child: Column(
-              //       mainAxisAlignment: MainAxisAlignment.center,
-              //       children: <Widget>[
-              //         Image.asset('assets/images/appicon.png', scale: 2.5),
-              //         SizedBox(
-              //           height: 20,
-              //         ),
-              //         Text(
-              //           "SMARTID",
-              //           style: TextStyle(
-              //               fontSize: 30,
-              //               color: Colors.white,
-              //               fontFamily: 'Open Sans',
-              //               fontWeight: FontWeight.bold),
-              //         ),
-              //       ],
-              //     ),
-              //   ),
-              // ),
+              ),
             ],
           ),
         ),

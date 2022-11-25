@@ -1,12 +1,18 @@
 {
   "compilerOptions": {
-    "target": "es2017",
+    "target": "es6",
     "module": "commonjs",
-    "esModuleInterop": true,
-    "forceConsistentCasingInFileNames": true,
-    "strict": true,
-    "skipLibCheck": true,
-    "rootDir": "./src",
     "outDir": "./build",
+    "rootDirs": ["./src"],
+    "declaration": true,
+    "moduleResolution": "node",
+    "sourceMap": true,
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "experimentalDecorators": true
+  },
+  "watchOptions": {
+    "excludeDirectories": ["**/node_modules", "build/*"]
   }
 }

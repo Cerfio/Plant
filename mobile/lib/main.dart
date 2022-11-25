@@ -1,10 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:plant_iot_epitech/screens/plant.dart';
-import 'package:plant_iot_epitech/screens/read_qr_code.dart';
+import 'package:flutter/services.dart';
+import 'package:plant_iot_epitech/screens/my_plants.dart';
+import 'package:plant_iot_epitech/screens/notifications.dart';
+import 'package:plant_iot_epitech/screens/profile.dart';
+import 'package:plant_iot_epitech/screens/home.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
-  runApp(const MyApp());
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
+      .then((_) {
+    runApp(const MyApp());
+  });
 }
 
 class MyApp extends StatelessWidget {
@@ -18,7 +24,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const ReadQrCode(),
+      home: const MyHomePage(),
     );
   }
 }
@@ -32,6 +38,8 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _selectedIndex = 0;
+  final PageController _controller = PageController();
+
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
@@ -41,7 +49,18 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Plant(),
+      body: PageView(
+        controller: _controller,
+        onPageChanged: (index) => {
+          _onItemTapped(index),
+        },
+        children: const <Widget>[
+          Home(),
+          MyPlants(),
+          Notifications(),
+          Profile(),
+        ],
+      ),
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
         items: const <BottomNavigationBarItem>[
@@ -64,7 +83,14 @@ class _MyHomePageState extends State<MyHomePage> {
         ],
         currentIndex: _selectedIndex,
         selectedItemColor: const Color(0xff8BA07E),
-        onTap: _onItemTapped,
+        onTap: (index) => {
+          _onItemTapped(index),
+          _controller.animateToPage(
+            index,
+            duration: const Duration(milliseconds: 300),
+            curve: Curves.ease,
+          )
+        },
       ),
     );
   }

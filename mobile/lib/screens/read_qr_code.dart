@@ -18,6 +18,13 @@ class _ReadQrCodeState extends State<ReadQrCode> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: const Color(0xffF9FAF7),
+        elevation: 0,
+        iconTheme: const IconThemeData(
+          color: Color(0xff708265), //change your color here
+        ),
+      ),
       body: SafeArea(
         child: Container(
           color: const Color(0xffF9FAF7),
@@ -27,12 +34,12 @@ class _ReadQrCodeState extends State<ReadQrCode> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
-                Container(
-                  margin: const EdgeInsets.all(24),
+                SizedBox(
                   width: 288,
                   height: 80,
                   child: logo,
                 ),
+                const SizedBox(height: 24),
                 const Text(
                   'Scan QR-code',
                   style: TextStyle(
@@ -68,29 +75,27 @@ class _ReadQrCodeState extends State<ReadQrCode> {
                     },
                   ),
                 ),
-                Container(
-                  margin: const EdgeInsets.only(top: 64),
-                  padding: const EdgeInsets.symmetric(horizontal: 38),
-                  width: double.infinity,
-                  height: 48,
-                  child: ElevatedButton(
-                    onPressed: () {},
-                    style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all<Color>(
-                        const Color(0xffC9DBBD),
-                      ),
-                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                        RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(48),
-                        ),
+                const SizedBox(height: 24),
+                ElevatedButton(
+                  onPressed: () {},
+                  style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all<Color>(
+                      const Color(0xffC9DBBD),
+                    ),
+                    fixedSize: MaterialStateProperty.all<Size>(
+                      const Size(327, 48),
+                    ),
+                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                      RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(48),
                       ),
                     ),
-                    child: const Text(
-                      'Take picture',
-                      style: TextStyle(
-                        fontSize: 16,
-                        color: Colors.white,
-                      ),
+                  ),
+                  child: const Text(
+                    'Take picture',
+                    style: TextStyle(
+                      fontSize: 16,
+                      color: Colors.white,
                     ),
                   ),
                 ),

@@ -42,7 +42,7 @@ class _IntroductionState extends State<Introduction> {
               width: 280,
               height: 160,
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   SmoothPageIndicator(
                     controller: _controller,
@@ -62,6 +62,7 @@ class _IntroductionState extends State<Introduction> {
                       ),
                     ),
                   ),
+                  const SizedBox(height: 30),
                   SizedBox(
                     width: double.infinity,
                     height: 40,
@@ -110,6 +111,7 @@ class _IntroductionState extends State<Introduction> {
                       ),
                     ),
                   ),
+                  const SizedBox(height: 20),
                 ],
               ),
             ),

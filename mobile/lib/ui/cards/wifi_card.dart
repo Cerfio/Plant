@@ -98,12 +98,12 @@ class _WifiCheckerState extends State<_WifiChecker> {
   @override
   Widget build(BuildContext context) {
     if (widget.powerOfSignal >= -50) {
-      return const WifiIcon(iconName: 'wifi-strong.svg');
+      return const WifiIcon(iconName: 'wifi-strong');
     } else if (widget.powerOfSignal < -50 && widget.powerOfSignal >= -60) {
-      return const WifiIcon(iconName: 'wifi-good.svg');
+      return const WifiIcon(iconName: 'wifi-good');
     } else if (widget.powerOfSignal < -60 && widget.powerOfSignal >= -70) {
-      return const WifiIcon(iconName: 'wifi-fair.svg');
+      return const WifiIcon(iconName: 'wifi-fair');
     }
-    return const WifiIcon(iconName: 'wifi-weak.svg');
+    return const WifiIcon(iconName: 'wifi-weak');
   }
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:plant_iot_epitech/screens/home.dart';
 import 'package:plant_iot_epitech/screens/sign_up.dart';
 import 'package:plant_iot_epitech/ui/inputs/form_text_field_input.dart';
 import 'package:plant_iot_epitech/validator/auth_validator.dart';
@@ -131,13 +132,21 @@ class _SignInState extends State<SignIn> {
                           height: 48,
                           child: ElevatedButton(
                             onPressed: () {
-                              if (_formKey.currentState!.validate()) {
-                                // widget.pageController.animateToPage(
-                                //   1,
-                                //   duration: const Duration(milliseconds: 300),
-                                //   curve: Curves.linear,
-                                // );
-                              }
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) {
+                                    return const Home();
+                                  },
+                                ),
+                              );
+                              // if (_formKey.currentState!.validate()) {
+                              //   // widget.pageController.animateToPage(
+                              //   //   1,
+                              //   //   duration: const Duration(milliseconds: 300),
+                              //   //   curve: Curves.linear,
+                              //   // );
+                              // }
                             },
                             style: ButtonStyle(
                               backgroundColor: MaterialStateProperty.all<Color>(

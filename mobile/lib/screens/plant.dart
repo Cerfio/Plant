@@ -23,45 +23,66 @@ class Plant extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: MediaQuery.of(context).size.height,
-      width: MediaQuery.of(context).size.width,
-      color: const Color(0xffC9DBBD),
-      child: SlidingUpPanel(
-        parallaxEnabled: true,
-        panelSnapping: true,
-        borderRadius: const BorderRadius.only(
-          topLeft: Radius.circular(45),
-          topRight: Radius.circular(45),
-        ),
-        maxHeight: MediaQuery.of(context).size.height - 10,
-        minHeight: 520,
-        panelBuilder: (ScrollController sc) => Container(
-            decoration: const BoxDecoration(
-              color: Color(0xffF9FAF7),
-              borderRadius: BorderRadius.all(Radius.circular(32)),
-            ),
-            child: _scrollingList(sc, context)),
-        body: Center(
-          child: SafeArea(
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Column(
-                  children: [
-                    const Text("Aznard",
-                        style: TextStyle(fontSize: 32),
-                        textAlign: TextAlign.center),
-                    const SizedBox(height: 25),
-                    SizedBox(
-                      width: 200,
-                      height: 200,
-                      child: tomatoPlant,
+    return Scaffold(
+      body: Container(
+        height: MediaQuery.of(context).size.height,
+        width: MediaQuery.of(context).size.width,
+        color: const Color(0xffC9DBBD),
+        child: SlidingUpPanel(
+          parallaxEnabled: true,
+          panelSnapping: true,
+          borderRadius: const BorderRadius.only(
+            topLeft: Radius.circular(45),
+            topRight: Radius.circular(45),
+          ),
+          maxHeight: MediaQuery.of(context).size.height,
+          minHeight: 520,
+          panelBuilder: (ScrollController sc) => Container(
+              decoration: const BoxDecoration(
+                color: Color(0xffF9FAF7),
+                borderRadius: BorderRadius.all(Radius.circular(32)),
+              ),
+              child: _scrollingList(sc, context)),
+          body: Center(
+            child: SafeArea(
+              child: Column(
+                children: [
+                  const SizedBox(height: 20),
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width,
+                    child: Stack(
+                      alignment: Alignment.center,
+                      children: <Widget>[
+                        Positioned(
+                          left: 10,
+                          child: IconButton(
+                            onPressed: () => Navigator.pop(context),
+                            icon: const Icon(
+                              Icons.arrow_back,
+                              color: Color(0xff708265),
+                            ),
+                          ),
+                        ),
+                        const Text(
+                          "Aznard",
+                          style: TextStyle(
+                            fontSize: 32,
+                            fontWeight: FontWeight.w700,
+                            color: Color(0xff708265),
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
+                      ],
                     ),
-                  ],
-                ),
-              ],
+                  ),
+                  const SizedBox(height: 25),
+                  SizedBox(
+                    width: 200,
+                    height: 200,
+                    child: tomatoPlant,
+                  ),
+                ],
+              ),
             ),
           ),
         ),
@@ -108,7 +129,7 @@ class Plant extends StatelessWidget {
     }
 
     return ListView(
-      padding: const EdgeInsets.only(top: 35, bottom: 130),
+      padding: const EdgeInsets.only(top: 35, bottom: 35),
       controller: sc,
       children: [
         Row(

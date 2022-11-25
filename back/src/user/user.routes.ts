@@ -21,17 +21,5 @@ export default fp(async (server: any, opts: any, next: any) => {
     },
     new UserController(server).update,
   );
-
-  server.put(
-    '/user/password/:token',
-    {
-      preValidation: [server.sentry],
-      schema: {
-        body: userUpdatePasswordBodySchema,
-        response: userUpdatePasswordResponseSchema,
-      },
-    },
-    new UserController(server).updatePassword,
-  );
   next();
 });

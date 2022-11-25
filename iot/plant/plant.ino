@@ -15,7 +15,7 @@
 #define PREFERENCE_FILE_NAME "wificreds"
 #define HOSTNAME_MQTT "192.168.1.30"
 #define HOST_IP_MQTT 1883
-#define TOPIC_MQTT "/nodejs/mqtt"
+#define TOPIC_MQTT "/plant/data"
 #endif
 
 char clientid[] = "Cerfio-Arduino";
@@ -31,6 +31,7 @@ WiFiClient wificlient;
 MQTTClient mqttclient(&tasks, &wificlient, HOSTNAME_MQTT, HOST_IP_MQTT, clientid, NULL, NULL);
 MQTTTopic topic(&mqttclient, topicname);
 
+bool canPublish = false;
 
 void scanNetwork() {
   //WiFi.mode(WIFI_STA);
@@ -107,16 +108,20 @@ void connectNetwork() {
   deserializeJson(doc, server.arg("plain"));
   const char* ssid = doc["ssid"];
   const char* password = doc["password"];
+  const char* serialNumber = doc["serialNumber"];
 
   if (ssid == NULL) {
-    server.send(200, "text/json", "{\"message\":\"Missing ssid\"}");
+    server.send(400, "text/json", "{\"message\":\"Missing ssid\"}");
   }
   if (password == NULL) {
-    server.send(200, "text/json", "{\"message\":\"Missing password\"}");
+    server.send(400, "text/json", "{\"message\":\"Missing password\"}");
+  }
+  if (serialNumber == NULL) {
+    server.send(400, "text/json", "{\"message\":\"Missing serial number\"}");
   }
   bool isConnected = connectWifi(ssid, password);
   if (!isConnected) {
-    server.send(200, "text/json", "{\"message\":false}");
+    server.send(400, "text/json", "{\"message\":false}");
     return;
   }
 
@@ -124,6 +129,7 @@ void connectNetwork() {
   preferences.begin("credentials", false);
   preferences.putString("ssid", ssid);
   preferences.putString("password", password);
+  preferences.putString("serialNumber", serialNumber);
 
 
   server.send(200, "text/json", "{\"message\":true}");
@@ -131,7 +137,7 @@ void connectNetwork() {
 
 void setup() {
   delay(1000);
-  Serial.begin(115200);
+  Serial.begin(9600);
 
   Serial.println();
   Serial.println("Configuring access point...");
@@ -154,7 +160,7 @@ void setup() {
       Serial.println("Already have wifi");
     }
     if (isConnected) {
-      bool a = connectMqtt();
+      canPublish = connectMqtt();
     }
   }
 
@@ -170,21 +176,13 @@ void setup() {
   mqttclient.connect();
 }
 
-bool a = false;
-
 void loop() {
-  // server.handleClient();
-  // This is needed at the top of the loop!
-  // topic.loop();
-
-  // if (a == false && ) {
-    topic.publish("Hello");
-    // a = true;
+  if (canPublish) {
+    topic.publish("{\"serialNumber\":\"1234567890\",\"temperature\":25,\"humiditySoil\":50,\"humidityAir\":50,\"light\":50,\"battery\":3.7,\"pressure\":1000}", false);
     while (tasks.available()) {
       tasks.run();
     }
-    // mqttclient.disconnect();
-  // }
+  }
 
 
   // Dont overload the server!

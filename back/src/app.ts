@@ -13,6 +13,7 @@ import sentryDecorate from "./decorates/sentry.decorate";
 
 // routes
 import authRoutes from "./auth/auth.routes";
+import plantRoutes from "./plant/plant.routes";
 
 const server: any = fastify({ logger: true });
 
@@ -31,7 +32,7 @@ const loadDecorates = async () => {
 };
 
 const loadRoutes = async () => {
-  await server.register(authRoutes);
+  await server.register(authRoutes).register(plantRoutes);
 };
 
 const start = async () => {

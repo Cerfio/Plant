@@ -19,17 +19,13 @@ export class PlantDataController {
   ) => {
     this.logTask.start('create');
 
-    const plant = await this.plantService.findBySerialNumber(serialNumber);
-    await this.plantDataService.create(
-      plant.id,
-      temperature,
-      humiditySoil,
-      humidityAir,
-      light,
-      battery,
-      pressure,
-    );
+    try {
+      const plant = await this.plantService.findBySerialNumber(serialNumber);
+      await this.plantDataService.create(plant.id, temperature, humiditySoil, humidityAir, light, battery, pressure);
+    } catch (error) {
+      console.log(error);
+    }
     this.logTask.end('create');
-    return { message: 'Plant created' };
+    return { message: 'Plant Data Created' };
   };
 }

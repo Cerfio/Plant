@@ -7,16 +7,21 @@
 #include <CooperativeMultitasking.h>
 #include <MQTTClient.h>
 #include <SPI.h>
+#include <Adafruit_BME280.h>
 
 #ifndef APSSID
 #define HOSTNAME "Plant"
 #define NUMBER_MAX_TRY_CONNECTION 3
 #define SERVER_PING "www.google.com"
-#define PREFERENCE_FILE_NAME "wificreds"
+#define PREFERENCE_FILE_NAME "credentials"
 #define HOSTNAME_MQTT "192.168.1.30"
 #define HOST_IP_MQTT 1883
 #define TOPIC_MQTT "/plant/data"
 #endif
+
+#define adresseI2CduBME280 0x76
+#define pressionAuNiveauDeLaMerEnHpa 1024.90
+#define delaiRafraichissementAffichage 1500
 
 char clientid[] = "Cerfio-Arduino";
 char topicname[] = TOPIC_MQTT;
@@ -31,11 +36,12 @@ WiFiClient wificlient;
 MQTTClient mqttclient(&tasks, &wificlient, HOSTNAME_MQTT, HOST_IP_MQTT, clientid, NULL, NULL);
 MQTTTopic topic(&mqttclient, topicname);
 
+Adafruit_BME280 bme;
+
 bool canPublish = false;
 
+
 void scanNetwork() {
-  //WiFi.mode(WIFI_STA);
-  //WiFi.disconnect();
   DynamicJsonDocument doc(2048);
 
 
@@ -126,31 +132,76 @@ void connectNetwork() {
   }
 
   /* Write credentials in storage cache */
-  preferences.begin("credentials", false);
+  preferences.begin(PREFERENCE_FILE_NAME, false);
   preferences.putString("ssid", ssid);
   preferences.putString("password", password);
   preferences.putString("serialNumber", serialNumber);
 
-
   server.send(200, "text/json", "{\"message\":true}");
+}
+
+const int get_light_luminosity() {
+  const int value = analogRead(A0);
+  // const int compute_percentage = (100 - ((value / 1023.00) * 100));
+  // return compute_percentage;
+  return value;
+}
+
+const int get_soil_moisture() {
+  const int value = analogRead(A0);
+  // Serial.print("Before compute moisture value : ");
+  // Serial.println(value);
+  // const int compute_percentage = (100 - ((value / 1023.00) * 100));
+  return value;
+}
+
+struct bme_sensor {
+  int temperature;
+  int humidity;
+  int pression;
+  int altitude;
+};
+
+struct bme_sensor get_temperature_humidity_pression_altitude() {
+  bme_sensor local_bme_sensor;
+
+  local_bme_sensor.temperature = bme.readTemperature() - 1;
+  local_bme_sensor.humidity = bme.readHumidity();
+  local_bme_sensor.pression = bme.readPressure() / 100.0F;
+  local_bme_sensor.altitude = bme.readAltitude(pressionAuNiveauDeLaMerEnHpa);
+  return local_bme_sensor;
 }
 
 void setup() {
   delay(1000);
   Serial.begin(9600);
 
+
+  // // Initialisation du BME280
+  Serial.print(F("Initialisation du BME280, à l'adresse [0x"));
+  Serial.print(adresseI2CduBME280, HEX);
+  Serial.println(F("]"));
+
+  if (!bme.begin(adresseI2CduBME280)) {
+    Serial.println(F("--> ÉCHEC…"));
+  } else {
+    Serial.println(F("--> RÉUSSIE !"));
+  }
+
   Serial.println();
   Serial.println("Configuring access point...");
 
 
-  preferences.begin(PREFERENCE_FILE_NAME);
+  preferences.begin(PREFERENCE_FILE_NAME, true);
 
+  String serialNumber = preferences.getString("serialNumber", "");
   String ssid = preferences.getString("ssid", "");
   String password = preferences.getString("password", "");
 
   Serial.println("_____credentials cache_____");
   Serial.println(ssid);
   Serial.println(password);
+  Serial.println(serialNumber);
   Serial.println("_____credentials cache_____");
   bool run_server = true;
   if (ssid != "" || password != "") {
@@ -178,7 +229,14 @@ void setup() {
 
 void loop() {
   if (canPublish) {
-    topic.publish("{\"serialNumber\":\"1234567890\",\"temperature\":25,\"humiditySoil\":50,\"humidityAir\":50,\"light\":50,\"battery\":3.7,\"pressure\":1000}", false);
+
+    const bme_sensor bme_sensor = get_temperature_humidity_pression_altitude();
+    const int soil_moisture_value = get_soil_moisture();
+
+    // const int light_value = get_light_luminosity();
+    String serialNumber = preferences.getString("serialNumber", "");
+    String payload = "{\"serialNumber\":\"" + serialNumber + "\",\"temperature\":" + String(bme_sensor.temperature) + ",\"humiditySoil\":" + String(soil_moisture_value) + ",\"humidityAir\":" + String(bme_sensor.humidity) + ",\"light\":" + String(0) + ",\"battery\":" + String(100) + ",\"pressure\":" + String(bme_sensor.pression) + "}";
+    topic.publish(payload.c_str(), false);
     while (tasks.available()) {
       tasks.run();
     }

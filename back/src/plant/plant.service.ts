@@ -48,6 +48,13 @@ export class PlantService {
         },
         include: {
           user: true,
+          datas: {
+            where: {
+              createdAt: {
+                gte: new Date(new Date().setDate(new Date().getDate() - 7)),
+              },
+            },
+          },
         },
       });
     } catch (e: any) {

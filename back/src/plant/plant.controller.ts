@@ -46,4 +46,11 @@ export class PlantController {
     this.logTask.end('gets');
     reply.code(200).send(plants);
   }
+
+  get = async (request: any, reply: any) => {
+    this.logTask.start('get');
+    const plant = await this.plantService.findById(request.params.id);
+    this.logTask.end('get');
+    reply.code(200).send(plant);
+  }
 }

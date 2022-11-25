@@ -41,6 +41,9 @@ dependencies:
   smooth_page_indicator: ^1.0.0+2
   fl_chart: ^0.55.2
   mobile_scanner: ^2.1.0
+  provider: ^6.0.4
+  http: ^0.13.5
+  shared_preferences: ^2.0.15
 
 dev_dependencies:
   flutter_test:

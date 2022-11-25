@@ -109,4 +109,26 @@ export class PlantService {
     this.logTask.end('findMany');
     return plants;
   };
+
+  findBySerialNumber = async (serialNumber: string) => {
+    this.logTask.start('findBySerialNumber');
+
+    let plant: Plant | null = null;
+
+    try {
+      plant = await prisma.plant.findFirst({
+        where: {
+          serialNumber,
+          isEnable: true,
+        },
+      });
+    } catch (e: any) {
+      throw new PrismaError(this.server, this.logTask, e, true);
+    }
+    if (!plant) {
+      throw new PlantNotFoundError(this.server, this.logTask);
+    }
+    this.logTask.end('findBySerialNumber');
+    return plant;
+  };
 }

@@ -1,0 +1,7 @@
+MQTTClient	KEYWORD1
+MQTTTopic	KEYWORD1
+connect	KEYWORD2
+connected	KEYWORD2
+publishAcknowledged	KEYWORD2
+disconnect	KEYWORD2
+publish	KEYWORD2

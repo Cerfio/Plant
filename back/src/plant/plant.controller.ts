@@ -20,7 +20,7 @@ export class PlantController {
     }
     await this.plantService.create(request.user.id, name, request.body.macAddress, request.body.serialNumber);
     this.logTask.end('create');
-    reply.code(200).send({ message: true });
+    reply.code(200).send({ message: name });
   };
 
   delete = async (request: any, reply: any) => {

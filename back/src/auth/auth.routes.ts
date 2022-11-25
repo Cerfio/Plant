@@ -42,17 +42,5 @@ export default fp(async (server: any, opts: any, next: any) => {
     new AuthController(server).emailAvailable,
   );
 
-  server.post(
-    '/auth/google',
-    {
-      preValidation: [server.sentry],
-      schema: {
-        body: authGoogleBodySchema,
-        response: authGoogleResponseSchema,
-      },
-    },
-    new AuthController(server).authGoogle,
-  );
-
   next();
 });

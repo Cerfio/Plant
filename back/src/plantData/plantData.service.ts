@@ -1,8 +1,8 @@
 import { LogTaskService } from '../../common/LogTask';
-import { PlantAlreadyExistError, PlantNotFoundError } from './plant.exceptions';
 import { PrismaError } from '../prisma/prisma.exception';
 import prisma from '../prisma/prisma.client';
 import { Plant, User } from '@prisma/client';
+import { PlantNotFoundError } from '../plant/plant.exceptions';
 
 export class PlantDataService {
   logTask: LogTaskService = new LogTaskService('PlantDataService');
@@ -39,34 +39,6 @@ export class PlantDataService {
     } catch (e: any) {
       throw new PrismaError(this.server, this.logTask, e, true);
     }
-  };
-
-  findById = async (id: string) => {
-    this.logTask.start('findById');
-
-    let plant:
-      | (Plant & {
-          user: User;
-        })
-      | null = null;
-
-    try {
-      plant = await prisma.plant.findUnique({
-        where: {
-          id,
-        },
-        include: {
-          user: true,
-        },
-      });
-    } catch (e: any) {
-      throw new PrismaError(this.server, this.logTask, e, true);
-    }
-    if (!plant) {
-      throw new PlantNotFoundError(this.server, this.logTask);
-    }
-    this.logTask.end('findById');
-    return plant;
   };
 
   delete = async (id: string) => {

@@ -58,25 +58,4 @@ export class AuthController {
     this.logTask.end('emailAvailable');
     reply.code(200).send({ message: emailAlreadyExist });
   };
-
-  authGoogle = async (request: any, reply: any) => {
-    this.logTask.start('authGoogle');
-    const accessToken = await this.googleService.getAccessTokenFromCode(request.body.code);
-    const googleUser = await this.googleService.getGoogleUserInfo(accessToken);
-    let user: User;
-    try {
-      user = await this.userService.findByEmail(googleUser.email);
-    } catch (e: any) {
-      if (e.statusCode !== 404) throw e;
-      user = await this.userService.create(
-        googleUser.given_name,
-        googleUser.family_name,
-        googleUser.email,
-        null,
-      );
-    }
-    const token = await this.authService.createJwt(user.id);
-    this.logTask.end('authGoogle');
-    reply.code(200).send({ token });
-  };
 }

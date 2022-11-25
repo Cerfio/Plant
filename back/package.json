@@ -41,6 +41,7 @@
     "dotenv": "^16.0.3",
     "fastify": "^4.10.2",
     "fastify-blipp": "^3.1.0",
+    "fastify-multer": "^2.0.3",
     "mqtt": "^4.3.7",
     "node-emoji": "^1.11.0"
   },

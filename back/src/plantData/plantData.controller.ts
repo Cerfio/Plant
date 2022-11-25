@@ -1,7 +1,5 @@
 import { LogTaskController } from '../../common/LogTask';
 import { PlantDataService } from './plantData.service';
-import axios from 'axios';
-import { PlantGeneratorNameError } from './plant.exceptions';
 import { PlantService } from '../plant/plant.service';
 
 export class PlantDataController {

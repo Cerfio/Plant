@@ -10,7 +10,7 @@ export class UserService {
   logTask: LogTaskService = new LogTaskService('UserService');
   constructor(readonly server: any) {}
 
-  create = async (firstname: string, lastname: string, email: string, password: string | null) => {
+  create = async (firstname: string, lastname: string, email: string, password: string) => {
     this.logTask.start('create');
 
     try {

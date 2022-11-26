@@ -12,6 +12,8 @@ class PlantCreated extends StatefulWidget {
 }
 
 class _PlantCreatedState extends State<PlantCreated> {
+  String _capitalize(String s) => s[0].toUpperCase() + s.substring(1);
+
   @override
   Widget build(BuildContext context) {
     final plant = context.read<PlantProvider>();
@@ -44,7 +46,7 @@ class _PlantCreatedState extends State<PlantCreated> {
                       child: Column(
                         children: <Widget>[
                           Text(
-                            "${snapshot.data!.plantName} has been created",
+                            "${_capitalize(snapshot.data!.plantName!)} has been created",
                             style: const TextStyle(
                               fontSize: 48,
                               fontWeight: FontWeight.w900,

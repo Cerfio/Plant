@@ -64,18 +64,12 @@ export default fp(async (server: any, opts: any, next: any) => {
     new PlantController(server).gets,
   );
 
-  /*
   server.get(
-    '/plant/:id',
+    '/user/plant',
     {
-      preValidation: [server.sentry],
-      schema: {
-        body: userUpdatePasswordBodySchema,
-        response: userUpdatePasswordResponseSchema,
-      },
+      preValidation: [server.sentry, server.authenticate],
     },
-    new UserController(server).updatePassword,
-  );
-  */
+    new PlantController(server).plantsUser,
+  )
   next();
 });

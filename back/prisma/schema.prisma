@@ -20,6 +20,7 @@ model User {
   language  LanguageEnum
   profile   Profile?
   plants    Plant[]
+  admin     Boolean      @default(false)
   createdAt DateTime     @default(now())
   updatedAt DateTime     @updatedAt
 }

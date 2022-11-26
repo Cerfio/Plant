@@ -2,7 +2,7 @@ import { LogTaskService } from '../../common/LogTask';
 import { PlantAlreadyExistError, PlantNotFoundError } from './plant.exceptions';
 import { PrismaError } from '../prisma/prisma.exception';
 import prisma from '../prisma/prisma.client';
-import { Plant, User } from '@prisma/client';
+import { Plant, PlantData, User } from '@prisma/client';
 
 export class PlantService {
   logTask: LogTaskService = new LogTaskService('PlantService');
@@ -146,5 +146,32 @@ export class PlantService {
     }
     this.logTask.end('findBySerialNumber');
     return plant;
+  };
+
+  findManyByUserId = async (userId: string) => {
+    this.logTask.start('findManyByUserId');
+
+    let plants: (Plant & {
+      datas: PlantData[];
+    })[] = [];
+
+    try {
+      plants = await prisma.plant.findMany({
+        where: {
+          userId,
+        },
+        include: {
+          datas: {
+            orderBy: {
+              createdAt: 'desc',
+            },
+          },
+        },
+      });
+    } catch (e: any) {
+      throw new PrismaError(this.server, this.logTask, e, true);
+    }
+    this.logTask.end('findManyByUserId');
+    return plants;
   };
 }

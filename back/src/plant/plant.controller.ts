@@ -53,4 +53,11 @@ export class PlantController {
     this.logTask.end('get');
     reply.code(200).send(plant);
   }
+
+  plantsUser = async (request: any, reply: any) => {
+    this.logTask.start('plantsUser');
+    const plants = await this.plantService.findManyByUserId(request.query.userId);
+    this.logTask.end('plantsUser');
+    reply.code(200).send(plants);
+  }
 }

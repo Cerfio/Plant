@@ -72,14 +72,10 @@ class _ListWifi extends StatefulWidget {
 class _ListWifiState extends State<_ListWifi> {
   @override
   Widget build(BuildContext context) {
-    // final wifi = context.watch<WifiDetailProvider>();
-    // Future<WifiDetailOutput> wifis =
-    // Provider.of<WifiDetailProvider>(context, listen: true).getWifi();
-
     return FutureBuilder(
       future: context
           .read<WifiDetailProvider>()
-          .getWifi(), // Provider.of<WifiDetailProvider>(context, listen: false).getWifi(),
+          .getWifi(),
       builder: (context, snapshot) {
         print('BUILD -- _ListWifi');
         if (snapshot.hasData) {

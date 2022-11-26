@@ -50,7 +50,7 @@ class WifiCard extends StatelessWidget {
               const SizedBox(width: 18),
               TextButton(
                 onPressed: () {
-                  Navigator.push(
+                  Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(
                       builder: (context) => EnterWifiPassword(

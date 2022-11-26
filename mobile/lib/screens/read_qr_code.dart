@@ -105,7 +105,8 @@ class _ReadQrCodeState extends State<ReadQrCode> {
                         MaterialPageRoute(
                           builder: (context) {
                             return BeforeChooseWifi(
-                                serialNumber: serialNumber!);
+                              serialNumber: serialNumber!,
+                            );
                           },
                         ),
                       );

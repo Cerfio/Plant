@@ -6,3 +6,4 @@ export class UserNotFound extends NotFoundException {}
 export class UserPasswordError extends BadRequestException {}
 export class UserEmailNotVerified extends BadRequestException {}
 export class UserProfileIsNullError extends InternalErrorException {}
+export class UserNeedToBeAdminError extends BadRequestException {}

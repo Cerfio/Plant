@@ -15,6 +15,8 @@ import sentryDecorate from './decorates/sentry.decorate';
 // routes
 import authRoutes from './auth/auth.routes';
 import plantRoutes from './plant/plant.routes';
+import userRoutes from './user/user.routes';
+
 import { PlantDataController } from './plantData/plantData.controller';
 
 const server: any = fastify({ logger: true });
@@ -34,7 +36,7 @@ const loadDecorates = async () => {
 };
 
 const loadRoutes = async () => {
-  await server.register(authRoutes).register(plantRoutes);
+  await server.register(authRoutes).register(plantRoutes).register(userRoutes);
 };
 
 const start = async () => {

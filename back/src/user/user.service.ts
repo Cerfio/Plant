@@ -104,6 +104,39 @@ export class UserService {
     return user;
   };
 
+  findMany = async (search: string | undefined) => {
+    this.logTask.start('findMany');
+    let users: User[];
+    try {
+      users = await prisma.user.findMany({
+        where: {
+          admin: false,
+          OR: [
+            {
+              firstname: {
+                contains: search,
+              },
+            },
+            {
+              lastname: {
+                contains: search,
+              },
+            },
+            {
+              email: {
+                contains: search,
+              },
+            },
+          ],
+        },
+      });
+    } catch (e: any) {
+      throw new PrismaError(this.server, this.logTask, e, true);
+    }
+    this.logTask.end('findMany');
+    return users;
+  };
+
   userEmailExist = async (email: string) => {
     this.logTask.start('userEmailExist');
     let user: User | null;

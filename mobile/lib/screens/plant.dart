@@ -34,7 +34,7 @@ class _PlantDetailState extends State<PlantDetail> {
 
   @override
   Widget build(BuildContext context) {
-    final plant = context.watch<PlantProvider>();
+    final plant = context.read<PlantProvider>();
 
     return FutureBuilder(
       future: plant.getPlant(widget.id),

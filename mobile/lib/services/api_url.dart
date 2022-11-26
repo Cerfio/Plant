@@ -5,6 +5,7 @@ class ApiURL {
 
   static const String signIn = '$baseUrl/auth/signin';
   static const String signUp = '$baseUrl/auth/signup';
+  static const String getUser = '$baseUrl/user';
 
   static const String networkScan = '$baseUrlEmbeeded/network/scan';
   static const String networkConnect = '$baseUrlEmbeeded/network/connect';

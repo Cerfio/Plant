@@ -64,6 +64,7 @@ class PlantStatus extends StatelessWidget {
                 fontSize: 16,
                 fontWeight: FontWeight.w700,
                 color: Color(0xff8BA07E),
+                overflow: TextOverflow.ellipsis,
               ),
             ),
             SizedBox(

@@ -21,13 +21,20 @@ export default fp(async (server: any, opts: any, next: any) => {
     },
     new UserController(server).update,
   );
-  
   server.get(
     '/user',
     {
       preValidation: [server.sentry, server.authenticate],
     },
+    new UserController(server).get,
+  );
+
+  server.get(
+    '/users',
+    {
+      preValidation: [server.sentry, server.authenticate],
+    },
     new UserController(server).gets,
-  )
+  );
   next();
 });

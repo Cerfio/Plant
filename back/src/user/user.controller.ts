@@ -15,6 +15,13 @@ export class UserController {
     reply.code(200).send({ message: true });
   };
 
+  get = async (request: any, reply: any) => {
+    this.logTask.start('get');
+    const user = await this.userService.findById(request.user.id);
+    this.logTask.end('get');
+    reply.code(200).send(user);
+  }
+
   gets = async (request: any, reply: any) => {
     this.logTask.start('gets');
 

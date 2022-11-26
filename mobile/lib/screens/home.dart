@@ -76,9 +76,10 @@ class _HomeState extends State<Home> {
                       context,
                       MaterialPageRoute(
                         builder: (context) {
-                          return const ChooseWifi(
-                            serialNumber: '',
-                          );
+                          // return const ChooseWifi(
+                          //   serialNumber: '',
+                          // );
+                          return const ReadQrCode();
                         },
                       ),
                     )

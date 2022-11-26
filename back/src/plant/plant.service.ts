@@ -23,7 +23,16 @@ export class PlantService {
               id: userId,
             },
           },
-          // PlantDatas
+          datas: {
+            create: {
+              temperature: 0,
+              humidityAir: 0,
+              light: 0,
+              humiditySoil: 0,
+              battery: 0,
+              pressure: 0,
+            },
+          },
         },
       });
       this.logTask.end('create');

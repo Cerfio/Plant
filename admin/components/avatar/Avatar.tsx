@@ -10,7 +10,9 @@ interface Props {
 const Avatar = ({ firstName, lastName }: Props) => {
   return (
     <div className={styles.avatar}>
-      <p>
+      <p className={styles.avatar__text}>
+        {firstName.charAt(0).toUpperCase()}
+        {lastName.charAt(0).toUpperCase()}
       </p>
     </div>
   );

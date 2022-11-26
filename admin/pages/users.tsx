@@ -1,13 +1,17 @@
 import React from 'react';
 
 import { useQuery } from '@tanstack/react-query';
-import { Card, Button, Text, Spacer, Row, Input, Avatar } from '@nextui-org/react';
+import { Grid, Text, Spacer, Loading } from '@nextui-org/react';
 
+import { getUsers } from '../services/users';
 import MyNavbar from '../components/MyNavbar';
+import UserCard from '../components/card/UserCard';
 
 import styles from '../styles/Users.module.scss';
 
 const Users = () => {
+  const { isLoading, data } = getUsers();
+
   return (
     <div className={styles.users}>
       <MyNavbar />
@@ -21,29 +25,17 @@ const Users = () => {
           List of users
         </Text>
         <Spacer y={2} />
-        <div className={styles.users__main__cards}>
-          <Card isPressable isHoverable css={{ mw: '300px' }}>
-            {/* <Avatar squared text="Jane" />
-              <Spacer x={1} />
-              <Text h3>Jane Doe</Text> */}
-            <Card.Body css={{ p: 0 }}>
-              
-              {/* <Card.Image
-                src={'https://nextui.org' + '/images/fruit-1.jpeg'}
-                objectFit="cover"
-                width="100%"
-                height={140}
-                alt={'Fruit'}
-              /> */}
-            </Card.Body>
-            <Card.Footer css={{ justifyItems: 'flex-start' }}>
-              <Row wrap="wrap" justify="space-between" align="center">
-                <Text b>{'Fruit'}</Text>
-                <Text css={{ color: '$accents7', fontWeight: '$semibold', fontSize: '$sm' }}>{'Normal'}</Text>
-              </Row>
-            </Card.Footer>
-          </Card>
-        </div>
+        {isLoading ? (
+          <Loading size="xl" />
+        ) : (
+          <Grid.Container gap={2} justify="center">
+            {data?.map(user => (
+              <Grid xs={6} sm={2}>
+                <UserCard firstName={user.firstname} lastName={user.lastname} isAdmin={user.admin} />
+              </Grid>
+            ))}
+          </Grid.Container>
+        )}
       </main>
     </div>
   );

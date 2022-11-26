@@ -37,6 +37,7 @@ const MyNavbar = ({ hasSearchBar = true, hasUserIcon = true }: Props) => {
             <Button
               auto
               icon={<Image src={UserIcon} alt="user-icon" width={20} height={20} />}
+              css={{ color: '#FFFFFF' }}
             />
           </Navbar.Item>
         </Navbar.Content>

@@ -18,7 +18,8 @@ const Home = () => {
 
   const { isLoading, mutate } = useMutation(signIn, {
     onSuccess: data => {
-      setToken(data.token);
+      console.log('data :  ', data);
+      setToken(data.message);
       router.push('/users');
     }
   });
@@ -52,9 +53,9 @@ const Home = () => {
                 <Text h3>Sign In</Text>
               </Card.Header>
               <Card.Body>
-                <Field id="email" name="email" placeholder="Email" />
+                <Field id="email" name="email" type="text" placeholder="Email" />
                 <Spacer y={1} />
-                <Field id="password" name="password" placeholder="Password" />
+                <Field id="password" name="password" type="password" placeholder="Password" />
               </Card.Body>
               <Card.Footer>
                 <Row wrap="wrap" justify="center" align="center">

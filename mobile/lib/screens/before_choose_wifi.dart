@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:plant_iot_epitech/screens/choose_wifi.dart';
-import 'package:plant_iot_epitech/ui/cards/wifi_card.dart';
 
 class BeforeChooseWifi extends StatelessWidget {
-  BeforeChooseWifi({super.key});
+  final String serialNumber;
+  BeforeChooseWifi({super.key, required this.serialNumber});
 
   final Widget logo = SvgPicture.asset(
     'assets/logos/plant.svg',
@@ -36,7 +36,7 @@ class BeforeChooseWifi extends StatelessWidget {
                     context,
                     MaterialPageRoute(
                       builder: (context) {
-                        return const ChooseWifi();
+                        return ChooseWifi(serialNumber: serialNumber);
                       },
                     ),
                   );
@@ -55,7 +55,7 @@ class BeforeChooseWifi extends StatelessWidget {
                   ),
                 ),
                 child: const Text(
-                  'I have switched of WIFI',
+                  'I have switched of WiFi',
                   style: TextStyle(
                     fontSize: 16,
                     color: Colors.white,

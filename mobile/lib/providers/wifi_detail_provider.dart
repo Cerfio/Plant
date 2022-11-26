@@ -13,6 +13,12 @@ enum GetWifiStatus {
   fetched,
 }
 
+enum ConnectWifiStatus {
+  notConnected,
+  connecting,
+  connected,
+}
+
 class WifiDetailOutput {
   final bool status;
   final String? error;
@@ -29,8 +35,49 @@ class WifiDetailOutput {
 
 class WifiDetailProvider with ChangeNotifier {
   GetWifiStatus _getWifiStatus = GetWifiStatus.notFetched;
+  ConnectWifiStatus _connectWifiStatus = ConnectWifiStatus.notConnected;
 
   GetWifiStatus get getWifiStatus => _getWifiStatus;
+  ConnectWifiStatus get connectWifiStatus => _connectWifiStatus;
+
+  Future<WifiDetailOutput> connectWifi(String ssid, String password) async {
+    _connectWifiStatus = ConnectWifiStatus.connecting;
+    notifyListeners();
+
+    Map<String, dynamic> createPlantData = {
+      'ssid': ssid,
+      'password': password,
+    };
+
+    Response response = await post(
+      Uri.parse(ApiURL.networkConnect),
+      body: createPlantData,
+      headers: {
+        HttpHeaders.contentTypeHeader: 'application/json',
+      },
+    );
+
+    print(response.body);
+
+    Map<String, dynamic> responseData = jsonDecode(response.body);
+
+    if (response.statusCode == 200) {
+      _connectWifiStatus = ConnectWifiStatus.connected;
+      notifyListeners();
+      return WifiDetailOutput(
+        status: true,
+        message: responseData['message'],
+      );
+    }
+
+    _connectWifiStatus = ConnectWifiStatus.notConnected;
+    notifyListeners();
+    return WifiDetailOutput(
+      status: false,
+      error: responseData['error'],
+      message: responseData['message'],
+    );
+  }
 
   Future<WifiDetailOutput> getWifi() async {
     _getWifiStatus = GetWifiStatus.fetching;

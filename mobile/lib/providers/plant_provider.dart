@@ -59,8 +59,7 @@ class PlantProvider with ChangeNotifier {
   GetPlantStatus get getPlantStatus => _getPlantStatus;
   DeletePlantStatus get deletePlantStatus => _deletePlantStatus;
 
-  Future<PlantsOutput> createPlant(
-      String macAddress, String serialNumber) async {
+  Future<PlantsOutput> createPlant(String serialNumber) async {
     String token = await UserPreferences().getUserToken();
     if (token == "") {
       return PlantsOutput(
@@ -71,7 +70,7 @@ class PlantProvider with ChangeNotifier {
     }
 
     Map<String, dynamic> createPlantData = {
-      'macAddress': macAddress,
+      'macAddress': '00:1B:44:11:3A:B7',
       'serialNumber': serialNumber,
     };
 
@@ -87,17 +86,19 @@ class PlantProvider with ChangeNotifier {
       },
     );
 
-    Map<String, dynamic> responseData = json.decode(response.body);
+    Plant plant = Plant.fromJson(json.decode(response.body));
 
     if (response.statusCode == 200) {
       _createPlantStatus = CreatePlantStatus.created;
       notifyListeners();
       return PlantsOutput(
         status: true,
-        message: responseData['message'],
+        message: "Plant Added",
+        plant: plant,
       );
     }
 
+    Map<String, dynamic> responseData = json.decode(response.body);
     _createPlantStatus = CreatePlantStatus.notCreated;
     notifyListeners();
     return PlantsOutput(

@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:plant_iot_epitech/providers/wifi_detail_provider.dart';
+import 'package:plant_iot_epitech/screens/plant_created.dart';
 import 'package:plant_iot_epitech/ui/cards/wifi_card.dart';
 import 'package:plant_iot_epitech/validator/wifi_validator.dart';
+import 'package:provider/provider.dart';
 
 class EnterWifiPassword extends StatefulWidget {
+  final String serialNumber;
   final String name;
   final int powerOfSignal;
 
@@ -11,6 +15,7 @@ class EnterWifiPassword extends StatefulWidget {
     super.key,
     required this.name,
     required this.powerOfSignal,
+    required this.serialNumber,
   });
 
   @override
@@ -29,6 +34,39 @@ class _EnterWifiPasswordState extends State<EnterWifiPassword> {
 
   @override
   Widget build(BuildContext context) {
+    WifiDetailProvider wifi = Provider.of<WifiDetailProvider>(context);
+
+    void connectWifiAction() {
+      if (_formKey.currentState!.validate() &&
+          wifi.connectWifiStatus != ConnectWifiStatus.connecting) {
+        wifi.connectWifi(widget.name, _passwordController.text).then(
+              (result) => {
+                if (result.status == true)
+                  {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) {
+                          return PlantCreated(
+                            serialNumber: widget.serialNumber,
+                          );
+                        },
+                      ),
+                    )
+                  }
+                else
+                  {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text("Error: $result['message']"),
+                      ),
+                    )
+                  }
+              },
+            );
+      }
+    }
+
     return Scaffold(
       body: SafeArea(
         child: Container(
@@ -61,6 +99,7 @@ class _EnterWifiPasswordState extends State<EnterWifiPassword> {
                     name: widget.name,
                     powerOfSignal: widget.powerOfSignal,
                     isChoosing: false,
+                    serialNumber: widget.serialNumber,
                   ),
                 ),
                 Container(
@@ -117,15 +156,7 @@ class _EnterWifiPasswordState extends State<EnterWifiPassword> {
                           width: double.infinity,
                           height: 48,
                           child: ElevatedButton(
-                            onPressed: () {
-                              if (_formKey.currentState!.validate()) {
-                                // widget.pageController.animateToPage(
-                                //   1,
-                                //   duration: const Duration(milliseconds: 300),
-                                //   curve: Curves.linear,
-                                // );
-                              }
-                            },
+                            onPressed: () => connectWifiAction(),
                             style: ButtonStyle(
                               backgroundColor: MaterialStateProperty.all<Color>(
                                 const Color(0xffC9DBBD),

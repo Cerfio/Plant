@@ -7,11 +7,14 @@ class WifiCard extends StatelessWidget {
   final String name;
   final int powerOfSignal;
   final bool isChoosing;
+  final String serialNumber;
+
   const WifiCard({
     super.key,
     required this.name,
     required this.powerOfSignal,
     required this.isChoosing,
+    required this.serialNumber,
   });
 
   @override
@@ -57,8 +60,9 @@ class WifiCard extends StatelessWidget {
                           ? EnterWifiPassword(
                               name: name,
                               powerOfSignal: powerOfSignal,
+                              serialNumber: serialNumber,
                             )
-                          : const ChooseWifi(),
+                          : ChooseWifi(serialNumber: serialNumber),
                     ),
                   );
                 },

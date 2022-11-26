@@ -48,11 +48,11 @@ class _PlantElementaryState extends State<PlantElementary> {
 
   final list = [
     {
-      "title": "Light",
-      "color": const Color(0xff89AC8C),
-      "backgroundColor": const Color(0xffEEF8EA),
-      "icon": Icons.lightbulb_outline,
-      "move": 600.0,
+      "title": "Water Quantity",
+      "color": const Color(0xff4375AB),
+      "backgroundColor": const Color(0xffEDF7FF),
+      "icon": Icons.water_drop_outlined,
+      "move": 20.0,
     },
     {
       "title": "Temperature",
@@ -76,10 +76,10 @@ class _PlantElementaryState extends State<PlantElementary> {
       "move": 472.0,
     },
     {
-      "title": "Age",
-      "color": const Color(0xffBA6969),
-      "backgroundColor": const Color(0xffFFD2D2),
-      "icon": Icons.hourglass_bottom_outlined,
+      "title": "Light",
+      "color": const Color(0xff89AC8C),
+      "backgroundColor": const Color(0xffEEF8EA),
+      "icon": Icons.lightbulb_outline,
       "move": 600.0,
     },
     {
@@ -94,6 +94,13 @@ class _PlantElementaryState extends State<PlantElementary> {
       "color": const Color(0xff8C89AC),
       "backgroundColor": const Color(0xffEAEDF8),
       "icon": Icons.landscape_outlined,
+      "move": 600.0,
+    },
+    {
+      "title": "Age",
+      "color": const Color(0xffBA6969),
+      "backgroundColor": const Color(0xffFFD2D2),
+      "icon": Icons.hourglass_bottom_outlined,
       "move": 600.0,
     },
   ];

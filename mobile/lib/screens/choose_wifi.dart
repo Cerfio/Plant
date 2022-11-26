@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:plant_iot_epitech/providers/wifi_detail_provider.dart';
@@ -7,7 +5,8 @@ import 'package:plant_iot_epitech/ui/cards/wifi_card.dart';
 import 'package:provider/provider.dart';
 
 class ChooseWifi extends StatefulWidget {
-  const ChooseWifi({super.key});
+  final String serialNumber;
+  const ChooseWifi({super.key, required this.serialNumber});
 
   @override
   State<ChooseWifi> createState() => _ChooseWifiState();
@@ -47,9 +46,9 @@ class _ChooseWifiState extends State<ChooseWifi> {
                     color: Color(0xff708265),
                   ),
                 ),
-                const Padding(
-                  padding: EdgeInsets.all(24),
-                  child: ListWifi(),
+                Padding(
+                  padding: const EdgeInsets.all(24),
+                  child: ListWifi(serialNumber: widget.serialNumber),
                 ),
               ],
             ),
@@ -60,35 +59,15 @@ class _ChooseWifiState extends State<ChooseWifi> {
   }
 }
 
-class Wifi {
-  String name;
-  double powerOfSignal;
-
-  Wifi(this.name, this.powerOfSignal);
-}
-
 class ListWifi extends StatefulWidget {
-  const ListWifi({super.key});
+  final String serialNumber;
+  const ListWifi({super.key, required this.serialNumber});
 
   @override
   State<ListWifi> createState() => _ListWifiState();
 }
 
 class _ListWifiState extends State<ListWifi> {
-  final int _listLength = 20;
-  final List<Wifi> _wifiList = [];
-
-  void generateWifi() {
-    for (int i = 0; i < _listLength; i++) {
-      _wifiList.add(Wifi('Livebox-$i$i$i$i', -i * 5));
-    }
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    generateWifi();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -109,6 +88,7 @@ class _ListWifiState extends State<ListWifi> {
                 name: snapshot.data!.wifis![index].ssid,
                 powerOfSignal: snapshot.data!.wifis![index].rssi,
                 isChoosing: true,
+                serialNumber: widget.serialNumber,
               );
             },
           );

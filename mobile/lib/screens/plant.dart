@@ -185,9 +185,9 @@ class _PlantDetailState extends State<PlantDetail> {
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: Row(
               children: [
-                CardElementaryLight(
+                CardElementaryWater(
                   value: plant.datas[0].light,
-                  callback: () => openCardElementary(0, 1024, 'light'),
+                  callback: () => openCardElementary(0, 1024, 'humiditySoil'),
                 ),
                 const SizedBox(width: 20),
                 CardElementaryTemperature(
@@ -227,9 +227,9 @@ class _PlantDetailState extends State<PlantDetail> {
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: Row(
               children: [
-                CardElementaryPressure(
-                  value: plant.datas[0].pressure,
-                  callback: () => openCardElementary(4, 1024, 'pressure'),
+                CardElementaryLight(
+                  value: plant.datas[0].light,
+                  callback: () => openCardElementary(4, 1024, 'light'),
                 ),
                 const SizedBox(width: 20),
                 CardElementaryBattery(
@@ -246,8 +246,17 @@ class _PlantDetailState extends State<PlantDetail> {
           height: 180,
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: CardElementaryAge(
-              callback: () => openCardElementary(6, 100, 'age'),
+            child: Row(
+              children: [
+                CardElementaryPressure(
+                  value: plant.datas[0].pressure,
+                  callback: () => openCardElementary(6, 1024, 'pressure'),
+                ),
+                const SizedBox(width: 20),
+                CardElementaryAge(
+                  callback: () => openCardElementary(7, 100, 'age'),
+                ),
+              ],
             ),
           ),
         ),

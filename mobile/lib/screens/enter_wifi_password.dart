@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:plant_iot_epitech/providers/wifi_detail_provider.dart';
 import 'package:plant_iot_epitech/screens/plant_created.dart';
+import 'package:plant_iot_epitech/ui/icons/wifi_signal_icon.dart';
 import 'package:plant_iot_epitech/validator/wifi_validator.dart';
 import 'package:provider/provider.dart';
 
@@ -70,66 +71,55 @@ class _EnterWifiPasswordState extends State<EnterWifiPassword> {
     }
   }
 
-  // Widget _enterWifiCard() {
-  //   return Container(
-  //     decoration: BoxDecoration(
-  //       borderRadius: BorderRadius.circular(20),
-  //       color: Colors.white,
-  //       boxShadow: const <BoxShadow>[
-  //         BoxShadow(
-  //           color: Color.fromARGB(25, 64, 59, 75),
-  //           blurRadius: 2,
-  //         ),
-  //       ],
-  //     ),
-  //     padding: const EdgeInsets.all(24),
-  //     height: 80,
-  //     child: Row(
-  //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-  //       crossAxisAlignment: CrossAxisAlignment.center,
-  //       children: [
-  //         SizedBox(
-  //           width: MediaQuery.of(context).size.width / 2 - 24,
-  //           child: Text(
-  //             widget.name,
-  //             style: const TextStyle(
-  //               fontSize: 16,
-  //               color: Color(0xff8BA07E),
-  //             ),
-  //             overflow: TextOverflow.ellipsis,
-  //           ),
-  //         ),
-  //         Row(
-  //           children: <Widget>[
-  //             WifiSignalIcon(powerOfSignal: widget.powerOfSignal),
-  //             const SizedBox(width: 18),
-  //             TextButton(
-  //               onPressed: () {
-  //                 Navigator.push(
-  //                   context,
-  //                   MaterialPageRoute(
-  //                     builder: (context) => EnterWifiPassword(
-  //                       name: widget.name,
-  //                       powerOfSignal: widget.powerOfSignal,
-  //                       serialNumber: widget.serialNumber,
-  //                     ),
-  //                   ),
-  //                 );
-  //               },
-  //               child: const Text(
-  //                 'Change',
-  //                 style: TextStyle(
-  //                   fontSize: 12,
-  //                   color: Color(0xff6A6A6A),
-  //                 ),
-  //               ),
-  //             ),
-  //           ],
-  //         )
-  //       ],
-  //     ),
-  //   );
-  // }
+  Widget _enterWifiCard() {
+    return Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(20),
+        color: Colors.white,
+        boxShadow: const <BoxShadow>[
+          BoxShadow(
+            color: Color.fromARGB(25, 64, 59, 75),
+            blurRadius: 2,
+          ),
+        ],
+      ),
+      padding: const EdgeInsets.all(24),
+      height: 80,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          SizedBox(
+            width: MediaQuery.of(context).size.width / 2 - 24,
+            child: Text(
+              widget.name,
+              style: const TextStyle(
+                fontSize: 16,
+                color: Color(0xff8BA07E),
+              ),
+              overflow: TextOverflow.ellipsis,
+            ),
+          ),
+          Row(
+            children: <Widget>[
+              WifiSignalIcon(powerOfSignal: widget.powerOfSignal),
+              const SizedBox(width: 18),
+              TextButton(
+                onPressed: () => Navigator.pop(context),
+                child: const Text(
+                  'Back',
+                  style: TextStyle(
+                    fontSize: 12,
+                    color: Color(0xff6A6A6A),
+                  ),
+                ),
+              ),
+            ],
+          )
+        ],
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -162,10 +152,10 @@ class _EnterWifiPasswordState extends State<EnterWifiPassword> {
                   ),
                 ),
                 const SizedBox(height: 24),
-                // Padding(
-                //   padding: const EdgeInsets.all(24),
-                //   child: _enterWifiCard()
-                // ),
+                Padding(
+                  padding: const EdgeInsets.all(24),
+                  child: _enterWifiCard()
+                ),
                 Container(
                   padding:
                       const EdgeInsets.symmetric(horizontal: 24, vertical: 12),

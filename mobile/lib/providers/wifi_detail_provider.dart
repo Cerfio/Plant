@@ -82,7 +82,6 @@ class WifiDetailProvider with ChangeNotifier {
 
   Future<WifiDetailOutput> getWifi() async {
     _getWifiStatus = GetWifiStatus.fetching;
-    notifyListeners();
 
     Response response = await get(
       Uri.parse(ApiURL.networkScan),

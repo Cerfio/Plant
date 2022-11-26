@@ -21,12 +21,14 @@ enum ConnectWifiStatus {
 
 class WifiDetailOutput {
   final bool status;
+  final bool? isConnected;
   final String? error;
   final String? message;
   List<WifiDetail>? wifis = [];
 
   WifiDetailOutput({
     required this.status,
+    this.isConnected,
     this.error,
     this.message,
     this.wifis,
@@ -68,7 +70,7 @@ class WifiDetailProvider with ChangeNotifier {
       notifyListeners();
       return WifiDetailOutput(
         status: true,
-        message: responseData['message'],
+        isConnected: responseData['message'],
       );
     }
 

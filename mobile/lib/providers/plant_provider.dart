@@ -36,6 +36,7 @@ class PlantsOutput {
   final bool status;
   final String? error;
   final String? message;
+  final String? plantName;
   List<Plant>? plants = [];
   Plant? plant;
 
@@ -43,6 +44,7 @@ class PlantsOutput {
     required this.status,
     this.error,
     this.message,
+    this.plantName,
     this.plants,
     this.plant,
   });
@@ -85,7 +87,7 @@ class PlantProvider with ChangeNotifier {
       },
     );
 
-    Plant plant = Plant.fromJson(json.decode(response.body));
+    Map<String, dynamic> responseData = json.decode(response.body);
 
     if (response.statusCode == 200) {
       _createPlantStatus = CreatePlantStatus.created;
@@ -93,11 +95,10 @@ class PlantProvider with ChangeNotifier {
       return PlantsOutput(
         status: true,
         message: "Plant Added",
-        plant: plant,
+        plantName: responseData['message'],
       );
     }
 
-    Map<String, dynamic> responseData = json.decode(response.body);
     _createPlantStatus = CreatePlantStatus.notCreated;
     notifyListeners();
     return PlantsOutput(

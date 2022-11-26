@@ -14,12 +14,10 @@ class PlantCreated extends StatefulWidget {
 class _PlantCreatedState extends State<PlantCreated> {
   @override
   Widget build(BuildContext context) {
-    Future<PlantsOutput> plant =
-        Provider.of<PlantProvider>(context, listen: false)
-            .createPlant(widget.serialNumber);
+    final plant = context.read<PlantProvider>();
 
     return FutureBuilder(
-      future: plant,
+      future: plant.createPlant(widget.serialNumber),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           return Scaffold(
@@ -46,7 +44,7 @@ class _PlantCreatedState extends State<PlantCreated> {
                       child: Column(
                         children: <Widget>[
                           Text(
-                            "${snapshot.data!.plant!.name} has been created",
+                            "${snapshot.data!.plantName} has been created",
                             style: const TextStyle(
                               fontSize: 48,
                               fontWeight: FontWeight.w900,

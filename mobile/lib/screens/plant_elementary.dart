@@ -1,21 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:badges/badges.dart';
+import 'package:plant_iot_epitech/models/plants.dart';
 import 'package:plant_iot_epitech/ui/charts/chart.dart';
 
-class Elementary {
-  String title;
-  Color color;
-  Color backgroundColor;
-  Icons icon;
-
-  Elementary(this.title, this.color, this.backgroundColor, this.icon);
-}
-
 class PlantElementary extends StatefulWidget {
-  const PlantElementary({super.key, required this.defaultChip});
-
   final int defaultChip;
+  final List<PlantData> plantData;
+  final int maxY;
+  final String type;
+
+  const PlantElementary({
+    super.key,
+    required this.defaultChip,
+    required this.plantData,
+    required this.maxY,
+    required this.type,
+  });
+
   @override
   State<PlantElementary> createState() => _PlantElementaryState();
 }
@@ -37,18 +38,21 @@ class _PlantElementaryState extends State<PlantElementary> {
     currentChip = widget.defaultChip;
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      _controller.animateTo(list[currentChip]["move"] as double,
-          duration: const Duration(milliseconds: 300), curve: Curves.ease);
+      _controller.animateTo(
+        list[currentChip]["move"] as double,
+        duration: const Duration(milliseconds: 300),
+        curve: Curves.ease,
+      );
     });
   }
 
   final list = [
     {
-      "title": "Water Quantity",
-      "color": const Color(0xff4375AB),
-      "backgroundColor": const Color(0xffEDF7FF),
-      "icon": Icons.water_drop_outlined,
-      "move": 20.0,
+      "title": "Light",
+      "color": const Color(0xff89AC8C),
+      "backgroundColor": const Color(0xffEEF8EA),
+      "icon": Icons.lightbulb_outline,
+      "move": 600.0,
     },
     {
       "title": "Temperature",
@@ -72,10 +76,10 @@ class _PlantElementaryState extends State<PlantElementary> {
       "move": 472.0,
     },
     {
-      "title": "Light",
-      "color": const Color(0xff89AC8C),
-      "backgroundColor": const Color(0xffEEF8EA),
-      "icon": Icons.lightbulb_outline,
+      "title": "Age",
+      "color": const Color(0xffBA6969),
+      "backgroundColor": const Color(0xffFFD2D2),
+      "icon": Icons.hourglass_bottom_outlined,
       "move": 600.0,
     },
     {
@@ -90,13 +94,6 @@ class _PlantElementaryState extends State<PlantElementary> {
       "color": const Color(0xff8C89AC),
       "backgroundColor": const Color(0xffEAEDF8),
       "icon": Icons.landscape_outlined,
-      "move": 600.0,
-    },
-    {
-      "title": "Age",
-      "color": const Color(0xffBA6969),
-      "backgroundColor": const Color(0xffFFD2D2),
-      "icon": Icons.hourglass_bottom_outlined,
       "move": 600.0,
     },
   ];
@@ -188,11 +185,17 @@ class _PlantElementaryState extends State<PlantElementary> {
                       ),
                   ],
                 ),
-                // }
               ],
             ),
           ),
-          const LineChartSample2(),
+          Padding(
+            padding: const EdgeInsets.all(24),
+            child: LineChartSample2(
+              plantData: widget.plantData,
+              maxY: widget.maxY,
+              type: widget.type,
+            ),
+          ),
         ],
       ),
     );

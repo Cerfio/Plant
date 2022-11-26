@@ -36,13 +36,15 @@ class PlantsOutput {
   final bool status;
   final String? error;
   final String? message;
-  List<Plants>? plants = [];
+  List<Plant>? plants = [];
+  Plant? plant;
 
   PlantsOutput({
     required this.status,
     this.error,
     this.message,
     this.plants,
+    this.plant,
   });
 }
 
@@ -54,6 +56,7 @@ class PlantProvider with ChangeNotifier {
 
   CreatePlantStatus get createPlantStatus => _createPlantStatus;
   GetPlantsStatus get getPlantsStatus => _getPlantsStatus;
+  GetPlantStatus get getPlantStatus => _getPlantStatus;
   DeletePlantStatus get deletePlantStatus => _deletePlantStatus;
 
   Future<PlantsOutput> createPlant(
@@ -125,7 +128,7 @@ class PlantProvider with ChangeNotifier {
       },
     );
 
-    List<Plants> plants = plantsFromJson(response.body);
+    List<Plant> plants = plantFromJson(response.body);
 
     if (response.statusCode == 200) {
       _getPlantsStatus = GetPlantsStatus.fetched;
@@ -147,7 +150,7 @@ class PlantProvider with ChangeNotifier {
     );
   }
 
-  Future<PlantsOutput> getPlant() async {
+  Future<PlantsOutput> getPlant(String id) async {
     String token = await UserPreferences().getUserToken();
     if (token == "") {
       return PlantsOutput(
@@ -161,22 +164,22 @@ class PlantProvider with ChangeNotifier {
     notifyListeners();
 
     Response response = await get(
-      Uri.parse(ApiURL.plant),
+      Uri.parse('${ApiURL.plant}/$id'),
       headers: {
         HttpHeaders.contentTypeHeader: 'application/json',
         HttpHeaders.authorizationHeader: "Bearer $token"
       },
     );
 
-    List<Plants> plants = plantsFromJson(response.body);
+    Plant plant = Plant.fromJson(json.decode(response.body));
 
     if (response.statusCode == 200) {
       _getPlantStatus = GetPlantStatus.fetched;
       notifyListeners();
       return PlantsOutput(
         status: true,
-        message: "Plants fetched",
-        plants: plants,
+        message: "Plant fetched",
+        plant: plant,
       );
     }
 

@@ -4,10 +4,9 @@ class PlantNickname extends StatefulWidget {
   const PlantNickname({
     super.key,
     required this.plantNickname,
-    required this.plantNicknameCallback,
   });
   final String plantNickname;
-  final Function plantNicknameCallback;
+
   @override
   State<PlantNickname> createState() => _PlantNicknameState();
 }

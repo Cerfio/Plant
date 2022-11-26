@@ -2,12 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:plant_iot_epitech/ui/cards_elementary/card_elementary_base.dart';
 
 class CardElementaryWater extends StatelessWidget {
+  final Function callback;
+  final int value;
+
   const CardElementaryWater({
     super.key,
     required this.callback,
+    required this.value,
   });
 
-  final Function callback;
   @override
   Widget build(BuildContext context) {
     return CardElementaryBase(
@@ -16,7 +19,7 @@ class CardElementaryWater extends StatelessWidget {
       subtitleColor: const Color(0xff4375AB),
       iconColor: const Color(0xff4375AB),
       title: 'Water Quantity',
-      subtitle: 'Give Water',
+      subtitle: '$value',
       icon: Icons.water_drop_outlined,
       callback: callback,
     );

@@ -32,7 +32,7 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(create: (_) => AuthProvider()),
         ChangeNotifierProvider(create: (_) => PlantProvider()),
-        // ChangeNotifierProvider(create: (_) => WifiDetailProvider()),
+        ChangeNotifierProvider(create: (_) => WifiDetailProvider()),
       ],
       child: MaterialApp(
         title: 'Flutter Demo',

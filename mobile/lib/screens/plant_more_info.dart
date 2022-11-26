@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:plant_iot_epitech/models/plants.dart';
 import 'package:plant_iot_epitech/ui/cards/card_lengthen.dart';
 
 class PlantMoreInfo extends StatelessWidget {
-  const PlantMoreInfo({super.key});
+  final Plant plant;
+
+  const PlantMoreInfo({super.key, required this.plant});
 
   @override
   Widget build(BuildContext context) {
@@ -10,9 +13,9 @@ class PlantMoreInfo extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: const Color(0xffF9FAF7),
         elevation: 0,
-        title: const Text(
-          "Aznard",
-          style: TextStyle(
+        title: Text(
+          plant.name,
+          style: const TextStyle(
             color: Color(0xff293B1C),
             fontSize: 30,
             fontWeight: FontWeight.bold,
@@ -33,7 +36,10 @@ class PlantMoreInfo extends StatelessWidget {
                 children: const [
                   Text(
                     "More Informations",
-                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.w600),
+                    style: TextStyle(
+                      fontSize: 24,
+                      fontWeight: FontWeight.w600,
+                    ),
                   ),
                 ],
               ),
@@ -47,14 +53,14 @@ class PlantMoreInfo extends StatelessWidget {
               const SizedBox(height: 40),
               CardLengthen(
                 title: "Mac Adress",
-                subtitle: "E5F7F60334AD",
+                subtitle: plant.macAddress,
                 callback: () => {},
                 displayChevron: false,
               ),
               const SizedBox(height: 40),
               CardLengthen(
                 title: "Serial Number",
-                subtitle: "CBFM0022FMI00948",
+                subtitle: plant.serialNumber,
                 callback: () => {},
                 displayChevron: false,
               ),

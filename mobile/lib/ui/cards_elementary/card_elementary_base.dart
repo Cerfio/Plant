@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:plant_iot_epitech/screens/plant_elementary.dart';
 
 class CardElementaryBase extends StatelessWidget {
   const CardElementaryBase({

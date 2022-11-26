@@ -90,11 +90,11 @@ class _ListWifiState extends State<ListWifi> {
 
   @override
   Widget build(BuildContext context) {
-    // Future<WifiDetailOutput> wifis =
-    // Provider.of<WifiDetailProvider>(context, listen: false).getWifi();
+    Future<WifiDetailOutput> wifis =
+      Provider.of<WifiDetailProvider>(context, listen: false).getWifi();
 
     return FutureBuilder(
-      future: Future.delayed(const Duration(seconds: 10)),
+      future: wifis,
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           return ListView.separated(

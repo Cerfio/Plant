@@ -20,6 +20,12 @@ enum GetPlantsStatus {
   fetched,
 }
 
+enum GetPlantStatus {
+  notFetched,
+  fetching,
+  fetched,
+}
+
 enum DeletePlantStatus {
   notDeleted,
   deleting,
@@ -43,6 +49,7 @@ class PlantsOutput {
 class PlantProvider with ChangeNotifier {
   CreatePlantStatus _createPlantStatus = CreatePlantStatus.notCreated;
   GetPlantsStatus _getPlantsStatus = GetPlantsStatus.notFetched;
+  GetPlantStatus _getPlantStatus = GetPlantStatus.notFetched;
   DeletePlantStatus _deletePlantStatus = DeletePlantStatus.notDeleted;
 
   CreatePlantStatus get createPlantStatus => _createPlantStatus;
@@ -132,6 +139,50 @@ class PlantProvider with ChangeNotifier {
 
     Map<String, dynamic> responseData = json.decode(response.body);
     _getPlantsStatus = GetPlantsStatus.notFetched;
+    notifyListeners();
+    return PlantsOutput(
+      status: false,
+      error: responseData['error'],
+      message: responseData['message'],
+    );
+  }
+
+  Future<PlantsOutput> getPlant() async {
+    String token = await UserPreferences().getUserToken();
+    if (token == "") {
+      return PlantsOutput(
+        status: false,
+        error: "No token",
+        message: "No token",
+      );
+    }
+
+    _getPlantStatus = GetPlantStatus.fetching;
+    notifyListeners();
+
+    Response response = await get(
+      Uri.parse(ApiURL.plant),
+      headers: {
+        HttpHeaders.contentTypeHeader: 'application/json',
+        HttpHeaders.authorizationHeader: "Bearer $token"
+      },
+    );
+
+    List<Plants> plants = plantsFromJson(response.body);
+
+    if (response.statusCode == 200) {
+      _getPlantStatus = GetPlantStatus.fetched;
+      notifyListeners();
+      return PlantsOutput(
+        status: true,
+        message: "Plants fetched",
+        plants: plants,
+      );
+    }
+
+    Map<String, dynamic> responseData = json.decode(response.body);
+    _getPlantStatus = GetPlantStatus.notFetched;
+
     notifyListeners();
     return PlantsOutput(
       status: false,

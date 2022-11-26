@@ -3,6 +3,7 @@ import 'package:plant_iot_epitech/screens/plant.dart';
 import 'package:plant_iot_epitech/ui/bars/icon_progress_bar.dart';
 
 class PlantStatus extends StatelessWidget {
+  final String id;
   final String name;
   final String type;
   final int waterStatus;
@@ -11,6 +12,7 @@ class PlantStatus extends StatelessWidget {
 
   const PlantStatus({
     super.key,
+    required this.id,
     required this.name,
     required this.type,
     required this.waterStatus,

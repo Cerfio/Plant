@@ -52,7 +52,18 @@ class _SignInState extends State<SignIn> {
             )
             .then(
               (result) => {
-                if (result['status'] == false)
+                if (result['status'] == true)
+                  {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) {
+                          return const Home();
+                        },
+                      ),
+                    )
+                  }
+                else
                   {
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(

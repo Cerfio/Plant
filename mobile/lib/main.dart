@@ -82,7 +82,6 @@ class _MyHomePageState extends State<MyHomePage> {
       future: token,
       builder: (context, snapshot) {
         if (snapshot.hasData) {
-          print(snapshot.data);
           if (snapshot.data!.isEmpty) {
             return const SignIn();
           } else {

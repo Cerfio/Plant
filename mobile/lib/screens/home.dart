@@ -210,11 +210,12 @@ class _HomeState extends State<Home> {
                   shrinkWrap: true,
                   itemBuilder: (context, index) {
                     return PlantStatus(
+                      id: snapshot.data!.plants![index].id,
                       name: snapshot.data!.plants![index].name,
                       type: '1',
                       waterStatus: snapshot.data!.plants![index].datas[0].humiditySoil,
                       lightStatus: snapshot.data!.plants![index].datas[0].light,
-                      temperatureStatus: snapshot.data!.plants![index].datas[0].light,
+                      temperatureStatus: snapshot.data!.plants![index].datas[0].temperature,
                     );
                   },
                 );

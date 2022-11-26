@@ -39,7 +39,7 @@ class PlantStatus extends StatelessWidget {
           context,
           MaterialPageRoute(
             builder: (context) {
-              return Plant();
+              return PlantDetail(id: id);
             },
           ),
         )

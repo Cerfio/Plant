@@ -2,12 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:plant_iot_epitech/ui/cards_elementary/card_elementary_base.dart';
 
 class CardElementaryBattery extends StatelessWidget {
+  final Function callback;
+  final int value;
+
   const CardElementaryBattery({
     super.key,
     required this.callback,
+    required this.value,
   });
 
-  final Function callback;
   @override
   Widget build(BuildContext context) {
     return CardElementaryBase(
@@ -16,7 +19,7 @@ class CardElementaryBattery extends StatelessWidget {
       subtitleColor: const Color(0xffACAC68),
       iconColor: const Color(0xffACAC68),
       title: 'Battery',
-      subtitle: '42%',
+      subtitle: '$value%',
       icon: Icons.battery_full_outlined,
       callback: callback,
     );

@@ -1,81 +1,87 @@
 // To parse this JSON data, do
 //
-//     final plants = plantsFromJson(jsonString);
+//     final plant = plantFromJson(jsonString);
 
 import 'dart:convert';
 
-List<Plants> plantsFromJson(String str) => List<Plants>.from(json.decode(str).map((x) => Plants.fromJson(x)));
+List<Plant> plantFromJson(String str) =>
+    List<Plant>.from(json.decode(str).map((x) => Plant.fromJson(x)));
 
-String plantsToJson(List<Plants> data) => json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
+String plantToJson(List<Plant> data) =>
+    json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
-class Plants {
-    Plants({
-      required this.id,
-      required this.name,
-      required this.serialNumber,
-      required this.macAddress,
-      required this.datas,
-    });
+class Plant {
+  Plant({
+    required this.id,
+    required this.name,
+    required this.serialNumber,
+    required this.macAddress,
+    required this.datas,
+  });
 
-    String id;
-    String name;
-    String serialNumber;
-    String macAddress;
-    List<Data> datas;
+  String id;
+  String name;
+  String serialNumber;
+  String macAddress;
+  List<PlantData> datas;
 
-    factory Plants.fromJson(Map<String, dynamic> json) => Plants(
+  factory Plant.fromJson(Map<String, dynamic> json) => Plant(
         id: json["id"],
         name: json["name"],
         serialNumber: json["serialNumber"],
         macAddress: json["macAddress"],
-        datas: List<Data>.from(json["datas"].map((x) => Data.fromJson(x))),
-    );
+        datas: List<PlantData>.from(
+          json["datas"].map(
+            (x) => PlantData.fromJson(x),
+          ),
+        ),
+      );
 
-    Map<String, dynamic> toJson() => {
+  Map<String, dynamic> toJson() => {
         "id": id,
         "name": name,
         "serialNumber": serialNumber,
         "macAddress": macAddress,
-        "datas": List<dynamic>.from(datas.map((x) => x.toJson())),
-    };
+        "datas": List<dynamic>.from(
+          datas.map(
+            (x) => x.toJson(),
+          ),
+        ),
+      };
 }
 
-class Data {
-    Data({
-      required this.temperature,
-      required this.humidityAir,
-      required this.humiditySoil,
-      required this.pressure,
-      required this.battery,
-      required this.light,
-      required this.water,
-    });
+class PlantData {
+  PlantData({
+    required this.temperature,
+    required this.humidityAir,
+    required this.humiditySoil,
+    required this.pressure,
+    required this.battery,
+    required this.light,
+  });
 
-    int temperature;
-    int humidityAir;
-    int humiditySoil;
-    int pressure;
-    int battery;
-    int light;
-    int water;
+  int temperature;
+  int humidityAir;
+  int humiditySoil;
+  int pressure;
+  int battery;
+  int light;
 
-    factory Data.fromJson(Map<String, dynamic> json) => Data(
+  factory PlantData.fromJson(Map<String, dynamic> json) => PlantData(
         temperature: json["temperature"],
         humidityAir: json["humidityAir"],
         humiditySoil: json["humiditySoil"],
         pressure: json["pressure"],
         battery: json["battery"],
         light: json["light"],
-        water: json["water"],
-    );
+      );
 
-    Map<String, dynamic> toJson() => {
+  Map<String, dynamic> toJson() => {
         "temperature": temperature,
         "humidityAir": humidityAir,
         "humiditySoil": humiditySoil,
         "pressure": pressure,
         "battery": battery,
         "light": light,
-        "water": water,
-    };
+      };
 }

@@ -33,10 +33,11 @@ class CardLengthen extends StatelessWidget {
               Text(
                 title,
                 style: const TextStyle(
-                    fontSize: 16,
-                    color: Color(0xff8BA07E),
-                    fontWeight: FontWeight.w600,
-                    fontFamily: 'Inter'),
+                  fontSize: 16,
+                  color: Color(0xff8BA07E),
+                  fontWeight: FontWeight.w600,
+                  fontFamily: 'Inter',
+                ),
               ),
               Row(
                 children: [

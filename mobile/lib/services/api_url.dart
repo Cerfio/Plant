@@ -1,6 +1,5 @@
 class ApiURL {
-  static const String baseUrl =
-      'http://9206-2a01-cb08-55a-2500-2d7b-6238-e3a2-6ae.ngrok.io';
+  static const String baseUrl = 'http://10.0.2.2:4242';
 
   static const String baseUrlEmbeeded = 'http://192.168.4.1';
 

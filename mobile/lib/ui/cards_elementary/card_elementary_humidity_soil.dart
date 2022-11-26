@@ -2,12 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:plant_iot_epitech/ui/cards_elementary/card_elementary_base.dart';
 
 class CardElementaryHumiditySoil extends StatelessWidget {
+  final Function callback;
+  final int value;
+
   const CardElementaryHumiditySoil({
     super.key,
     required this.callback,
+    required this.value,
   });
 
-  final Function callback;
   @override
   Widget build(BuildContext context) {
     return CardElementaryBase(
@@ -16,7 +19,7 @@ class CardElementaryHumiditySoil extends StatelessWidget {
       subtitleColor: const Color(0xffB870B9),
       iconColor: const Color(0xffB870B9),
       title: 'Humidity Soil',
-      subtitle: 'Dry',
+      subtitle: '$value',
       icon: Icons.layers_outlined,
       callback: callback,
     );

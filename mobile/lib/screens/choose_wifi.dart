@@ -72,7 +72,7 @@ class _ListWifiState extends State<ListWifi> {
   @override
   Widget build(BuildContext context) {
     Future<WifiDetailOutput> wifis =
-        Provider.of<WifiDetailProvider>(context, listen: false).getWifi();
+        Provider.of<WifiDetailProvider>(context, listen: true).getWifi();
 
     return FutureBuilder(
       future: wifis,

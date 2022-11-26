@@ -40,18 +40,19 @@ class WifiDetailProvider with ChangeNotifier {
   GetWifiStatus get getWifiStatus => _getWifiStatus;
   ConnectWifiStatus get connectWifiStatus => _connectWifiStatus;
 
-  Future<WifiDetailOutput> connectWifi(String ssid, String password) async {
+  Future<WifiDetailOutput> connectWifi(String ssid, String serialNumber, String password) async {
     _connectWifiStatus = ConnectWifiStatus.connecting;
     notifyListeners();
 
-    Map<String, dynamic> createPlantData = {
+    Map<String, dynamic> connectWifiData = {
       'ssid': ssid,
+      'serialNumber': serialNumber,
       'password': password,
     };
 
     Response response = await post(
       Uri.parse(ApiURL.networkConnect),
-      body: createPlantData,
+      body: connectWifiData,
       headers: {
         HttpHeaders.contentTypeHeader: 'application/json',
       },

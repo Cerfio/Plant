@@ -39,7 +39,7 @@ class _EnterWifiPasswordState extends State<EnterWifiPassword> {
     void connectWifiAction() {
       if (_formKey.currentState!.validate() &&
           wifi.connectWifiStatus != ConnectWifiStatus.connecting) {
-        wifi.connectWifi(widget.name, _passwordController.text).then(
+        wifi.connectWifi(widget.name, widget.serialNumber, _passwordController.text).then(
               (result) => {
                 if (result.status == true)
                   {

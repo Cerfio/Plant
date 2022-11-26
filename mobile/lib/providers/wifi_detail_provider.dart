@@ -53,7 +53,7 @@ class WifiDetailProvider with ChangeNotifier {
 
     Response response = await post(
       Uri.parse(ApiURL.networkConnect),
-      body: json.encode((connectWifiData)),
+      body: json.encode(connectWifiData),
       headers: {
         HttpHeaders.contentTypeHeader: 'application/json',
       },

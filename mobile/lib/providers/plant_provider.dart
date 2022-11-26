@@ -75,7 +75,6 @@ class PlantProvider with ChangeNotifier {
     };
 
     _createPlantStatus = CreatePlantStatus.creating;
-    notifyListeners();
 
     Response response = await post(
       Uri.parse(ApiURL.plant),
@@ -119,7 +118,6 @@ class PlantProvider with ChangeNotifier {
     }
 
     _getPlantsStatus = GetPlantsStatus.fetching;
-    notifyListeners();
 
     Response response = await get(
       Uri.parse(ApiURL.plant),
@@ -162,7 +160,6 @@ class PlantProvider with ChangeNotifier {
     }
 
     _getPlantStatus = GetPlantStatus.fetching;
-    notifyListeners();
 
     Response response = await get(
       Uri.parse('${ApiURL.plant}/$id'),
@@ -188,6 +185,42 @@ class PlantProvider with ChangeNotifier {
     _getPlantStatus = GetPlantStatus.notFetched;
 
     notifyListeners();
+    return PlantsOutput(
+      status: false,
+      error: responseData['error'],
+      message: responseData['message'],
+    );
+  }
+
+  Future<PlantsOutput> deletePlant(String id) async {
+    String token = await UserPreferences().getUserToken();
+    if (token == "") {
+      return PlantsOutput(
+        status: false,
+        error: "No token",
+        message: "No token",
+      );
+    }
+    _getPlantStatus = GetPlantStatus.fetching;
+
+    Response response = await delete(
+      Uri.parse('${ApiURL.plant}/$id'),
+      headers: {
+        HttpHeaders.contentTypeHeader: 'application/json',
+        HttpHeaders.authorizationHeader: "Bearer $token"
+      },
+    );
+
+    Map<String, dynamic> responseData = json.decode(response.body);
+
+    if (response.statusCode == 200) {
+      _deletePlantStatus = DeletePlantStatus.deleted;
+      notifyListeners();
+      return PlantsOutput(
+        status: true,
+        message: "Plant deleted !",
+      );
+    }
     return PlantsOutput(
       status: false,
       error: responseData['error'],

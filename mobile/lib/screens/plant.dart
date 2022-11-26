@@ -282,7 +282,10 @@ class _PlantDetailState extends State<PlantDetail> {
               ),
               const SizedBox(height: 20),
               TextButton(
-                onPressed: () {},
+                onPressed: () => {
+                  context.read<PlantProvider>().deletePlant(plant.id),
+                  Navigator.pop(context),
+                },
                 child: const Text(
                   "Unlink Plant",
                   style: TextStyle(

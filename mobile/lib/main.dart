@@ -27,12 +27,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Future<bool> userFirstTime = UserPreferences().getUserFirstTime();
-
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => AuthProvider()),
         ChangeNotifierProvider(create: (_) => PlantProvider()),
-        // ChangeNotifierProvider(create: (_) => WifiDetailProvider()),
+        ChangeNotifierProvider(create: (_) => WifiDetailProvider()),
       ],
       child: MaterialApp(
         title: 'Flutter Demo',

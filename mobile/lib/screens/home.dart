@@ -1,6 +1,10 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:http/http.dart';
 import 'package:plant_iot_epitech/providers/plant_provider.dart';
 import 'package:plant_iot_epitech/screens/read_qr_code.dart';
+import 'package:plant_iot_epitech/services/api_url.dart';
 import 'package:plant_iot_epitech/ui/cards/plant_status.dart';
 import 'package:provider/provider.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';

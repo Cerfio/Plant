@@ -43,7 +43,9 @@ class WifiDetailProvider with ChangeNotifier {
       },
     );
 
+    print(response.body);
     List<WifiDetail> wifis = wifiDetailFromJson(response.body);
+
     if (response.statusCode == 200) {
       _getWifiStatus = GetWifiStatus.fetched;
       notifyListeners();

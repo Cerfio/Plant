@@ -38,44 +38,44 @@ class _SignInState extends State<SignIn> {
 
   bool isLastPage = false;
 
+  void _signInAction() {
+    final auth = context.read<AuthProvider>();
+ 
+    if (_formKey.currentState!.validate() &&
+        auth.registeredInStatus != Status.authenticating) {
+      auth
+          .signIn(
+            _emailController.text,
+            _passwordController.text,
+          )
+          .then(
+            (result) => {
+              if (result['status'] == true)
+                {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) {
+                        return const Home();
+                      },
+                    ),
+                  )
+                }
+              else
+                {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text("Error: $result['message']"),
+                    ),
+                  )
+                }
+            },
+          );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    AuthProvider auth = Provider.of<AuthProvider>(context);
-
-    void signInAction() {
-      if (_formKey.currentState!.validate() &&
-          auth.registeredInStatus != Status.authenticating) {
-        auth
-            .signIn(
-              _emailController.text,
-              _passwordController.text,
-            )
-            .then(
-              (result) => {
-                if (result['status'] == true)
-                  {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) {
-                          return const Home();
-                        },
-                      ),
-                    )
-                  }
-                else
-                  {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        content: Text("Error: $result['message']"),
-                      ),
-                    )
-                  }
-              },
-            );
-      }
-    }
-
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
@@ -178,7 +178,7 @@ class _SignInState extends State<SignIn> {
                           width: double.infinity,
                           height: 48,
                           child: ElevatedButton(
-                            onPressed: () => signInAction(),
+                            onPressed: () => _signInAction(),
                             style: ButtonStyle(
                               backgroundColor: MaterialStateProperty.all<Color>(
                                 const Color(0xffC9DBBD),

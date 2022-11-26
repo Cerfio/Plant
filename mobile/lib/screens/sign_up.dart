@@ -298,46 +298,46 @@ class __SecondState extends State<_Second> {
 
   bool _passwordIsVisible = false;
 
+  void _registerAction() {
+    final auth = context.read<AuthProvider>();
+
+    if (_formKey.currentState!.validate() &&
+        auth.registeredInStatus != Status.registering) {
+      auth
+          .signUp(
+            widget.emailController.text,
+            _firstNameController.text,
+            _lastNameController.text,
+            _passwordController.text,
+          )
+          .then(
+            (result) => {
+              if (result['status'] == true)
+                {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) {
+                        return const SignIn();
+                      },
+                    ),
+                  )
+                }
+              else
+                {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text("Error: $result['message']"),
+                    ),
+                  )
+                }
+            },
+          );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    AuthProvider auth = Provider.of<AuthProvider>(context);
-
-    void registerAction() {
-      if (_formKey.currentState!.validate() &&
-          auth.registeredInStatus != Status.registering) {
-        auth
-            .signUp(
-              widget.emailController.text,
-              _firstNameController.text,
-              _lastNameController.text,
-              _passwordController.text,
-            )
-            .then(
-              (result) => {
-                if (result['status'] == true)
-                  {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) {
-                          return const SignIn();
-                        },
-                      ),
-                    )
-                  }
-                else
-                  {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        content: Text("Error: $result['message']"),
-                      ),
-                    )
-                  }
-              },
-            );
-      }
-    }
-
     return Align(
       alignment: Alignment.topCenter,
       child: SingleChildScrollView(
@@ -488,7 +488,7 @@ class __SecondState extends State<_Second> {
                         width: double.infinity,
                         height: 48,
                         child: ElevatedButton(
-                          onPressed: () => registerAction(),
+                          onPressed: () => _registerAction(),
                           style: ButtonStyle(
                             backgroundColor: MaterialStateProperty.all<Color>(
                               const Color(0xffC9DBBD),

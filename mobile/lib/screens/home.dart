@@ -135,8 +135,7 @@ class _HomeState extends State<Home> {
 
   Widget _scrollingList(
       ScrollController sc, PanelController pc, BuildContext context) {
-    Future<PlantsOutput> plants =
-        Provider.of<PlantProvider>(context, listen: false).getPlants();
+    final plants = context.watch<PlantProvider>();
 
     return Padding(
       padding: const EdgeInsets.only(bottom: 52),
@@ -193,7 +192,7 @@ class _HomeState extends State<Home> {
             ],
           ),
           FutureBuilder(
-            future: plants,
+            future: plants.getPlants(),
             builder: (context, snapshot) {
               if (snapshot.hasData) {
                 return GridView.builder(

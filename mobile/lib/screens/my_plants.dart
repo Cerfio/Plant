@@ -8,9 +8,6 @@ class MyPlants extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Future<PlantsOutput> plants =
-        Provider.of<PlantProvider>(context, listen: false).getPlants();
-
     return Scaffold(
       body: Container(
         height: MediaQuery.of(context).size.height,
@@ -33,7 +30,7 @@ class MyPlants extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.all(24),
                 child: FutureBuilder(
-                  future: plants,
+                  future: context.read<PlantProvider>().getPlants(),
                   builder: (context, snapshot) {
                     if (snapshot.hasData) {
                       return GridView.builder(

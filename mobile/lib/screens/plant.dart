@@ -34,11 +34,10 @@ class _PlantDetailState extends State<PlantDetail> {
 
   @override
   Widget build(BuildContext context) {
-    Future<PlantsOutput> plant =
-        Provider.of<PlantProvider>(context, listen: false).getPlant(widget.id);
+    final plant = context.watch<PlantProvider>();
 
     return FutureBuilder(
-      future: plant,
+      future: plant.getPlant(widget.id),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           return Scaffold(
@@ -116,7 +115,6 @@ class _PlantDetailState extends State<PlantDetail> {
 
   Widget _scrollingList(
       ScrollController sc, BuildContext context, Plant plant) {
-
     void openCardElementary(int index, int maxY, String type) {
       Navigator.of(context).push(
         MaterialPageRoute(

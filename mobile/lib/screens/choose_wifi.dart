@@ -92,7 +92,6 @@ class _ListWifiState extends State<_ListWifi> {
               return WifiCard(
                 name: snapshot.data!.wifis![index].ssid,
                 powerOfSignal: snapshot.data!.wifis![index].rssi,
-                isChoosing: true,
                 serialNumber: widget.serialNumber,
               );
             },

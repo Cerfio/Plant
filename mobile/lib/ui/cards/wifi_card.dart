@@ -1,19 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:plant_iot_epitech/screens/choose_wifi.dart';
-import 'package:plant_iot_epitech/ui/icons/wifi_icon.dart';
 import 'package:plant_iot_epitech/screens/enter_wifi_password.dart';
+import 'package:plant_iot_epitech/ui/icons/wifi_signal_icon.dart';
 
 class WifiCard extends StatelessWidget {
   final String name;
   final int powerOfSignal;
-  final bool isChoosing;
   final String serialNumber;
 
   const WifiCard({
     super.key,
     required this.name,
     required this.powerOfSignal,
-    required this.isChoosing,
     required this.serialNumber,
   });
 
@@ -49,65 +46,33 @@ class WifiCard extends StatelessWidget {
           ),
           Row(
             children: <Widget>[
-              _WifiChecker(powerOfSignal: powerOfSignal),
+              WifiSignalIcon(powerOfSignal: powerOfSignal),
               const SizedBox(width: 18),
               TextButton(
                 onPressed: () {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => isChoosing
-                          ? EnterWifiPassword(
-                              name: name,
-                              powerOfSignal: powerOfSignal,
-                              serialNumber: serialNumber,
-                            )
-                          : ChooseWifi(serialNumber: serialNumber),
+                      builder: (context) => EnterWifiPassword(
+                        name: name,
+                        powerOfSignal: powerOfSignal,
+                        serialNumber: serialNumber,
+                      ),
                     ),
                   );
                 },
-                child: isChoosing
-                    ? const Text(
-                        'Choose',
-                        style: TextStyle(
-                          fontSize: 12,
-                          color: Color(0xff6A6A6A),
-                        ),
-                      )
-                    : const Text(
-                        'Change',
-                        style: TextStyle(
-                          fontSize: 12,
-                          color: Color(0xff6A6A6A),
-                        ),
-                      ),
+                child: const Text(
+                  'Choose',
+                  style: TextStyle(
+                    fontSize: 12,
+                    color: Color(0xff6A6A6A),
+                  ),
+                ),
               ),
             ],
           )
         ],
       ),
     );
-  }
-}
-
-class _WifiChecker extends StatefulWidget {
-  final int powerOfSignal;
-  const _WifiChecker({required this.powerOfSignal});
-
-  @override
-  State<_WifiChecker> createState() => _WifiCheckerState();
-}
-
-class _WifiCheckerState extends State<_WifiChecker> {
-  @override
-  Widget build(BuildContext context) {
-    if (widget.powerOfSignal >= -50) {
-      return const WifiIcon(iconName: 'wifi-strong');
-    } else if (widget.powerOfSignal < -50 && widget.powerOfSignal >= -60) {
-      return const WifiIcon(iconName: 'wifi-good');
-    } else if (widget.powerOfSignal < -60 && widget.powerOfSignal >= -70) {
-      return const WifiIcon(iconName: 'wifi-fair');
-    }
-    return const WifiIcon(iconName: 'wifi-weak');
   }
 }

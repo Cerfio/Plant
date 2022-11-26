@@ -99,4 +99,15 @@ class AuthProvider with ChangeNotifier {
       'message': responseData['message']
     };
   }
+
+  Future<Map<String, dynamic>> logout() async {
+    _loggedInStatus = Status.loggedOut;
+    UserPreferences().removeUserToken();
+    notifyListeners();
+    return {
+      'status': true,
+      'error': null,
+      'message': 'User logout successfully'
+    };
+  }
 }

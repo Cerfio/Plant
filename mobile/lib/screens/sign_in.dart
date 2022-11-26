@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:plant_iot_epitech/main.dart';
 import 'package:plant_iot_epitech/providers/auth_provider.dart';
-import 'package:plant_iot_epitech/screens/home.dart';
 import 'package:plant_iot_epitech/screens/sign_up.dart';
 import 'package:plant_iot_epitech/ui/inputs/form_text_field_input.dart';
 import 'package:plant_iot_epitech/validator/auth_validator.dart';
@@ -56,7 +56,7 @@ class _SignInState extends State<SignIn> {
                     context,
                     MaterialPageRoute(
                       builder: (context) {
-                        return const Home();
+                        return const MyHomePage();
                       },
                     ),
                   )

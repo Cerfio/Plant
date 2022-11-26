@@ -1,8 +1,35 @@
 import 'package:flutter/material.dart';
+import 'package:plant_iot_epitech/main.dart';
+import 'package:plant_iot_epitech/providers/auth_provider.dart';
 import 'package:plant_iot_epitech/ui/cards/double_text_card.dart';
+import 'package:provider/provider.dart';
 
-class Profile extends StatelessWidget {
+class Profile extends StatefulWidget {
   const Profile({super.key});
+
+  @override
+  State<Profile> createState() => _ProfileState();
+}
+
+class _ProfileState extends State<Profile> {
+  void _disconnectAction() {
+    final auth = context.read<AuthProvider>();
+    auth.logout().then(
+          (result) => {
+            if (result['status'] == true)
+              {
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) {
+                      return const MyHomePage();
+                    },
+                  ),
+                )
+              }
+          },
+        );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -50,7 +77,7 @@ class Profile extends StatelessWidget {
             ),
             const SizedBox(height: 48),
             ElevatedButton(
-              onPressed: () => print('Press on disconnected'),
+              onPressed: () => _disconnectAction(),
               style: ButtonStyle(
                 backgroundColor: MaterialStateProperty.all<Color>(
                   Colors.white,

@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:plant_iot_epitech/providers/plant_provider.dart';
-import 'package:plant_iot_epitech/screens/choose_wifi.dart';
-import 'package:plant_iot_epitech/screens/enter_wifi_password.dart';
 import 'package:plant_iot_epitech/screens/read_qr_code.dart';
 import 'package:plant_iot_epitech/ui/cards/plant_status.dart';
 import 'package:provider/provider.dart';
@@ -140,7 +138,7 @@ class _HomeState extends State<Home> {
 
   Widget _scrollingList(
       ScrollController sc, PanelController pc, BuildContext context) {
-    final plants = context.watch<PlantProvider>();
+    final plants = context.read<PlantProvider>();
 
     return Padding(
       padding: const EdgeInsets.only(bottom: 52),

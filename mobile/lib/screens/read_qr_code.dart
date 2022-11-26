@@ -104,7 +104,8 @@ class _ReadQrCodeState extends State<ReadQrCode> {
                         context,
                         MaterialPageRoute(
                           builder: (context) {
-                            return BeforeChooseWifi(serialNumber: serialNumber!);
+                            return BeforeChooseWifi(
+                                serialNumber: serialNumber!);
                           },
                         ),
                       );
@@ -124,7 +125,7 @@ class _ReadQrCodeState extends State<ReadQrCode> {
                     ),
                   ),
                   child: const Text(
-                    'Change WiFi',
+                    'Take Picture',
                     style: TextStyle(
                       fontSize: 16,
                       color: Colors.white,

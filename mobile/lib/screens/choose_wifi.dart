@@ -21,6 +21,8 @@ class _ChooseWifiState extends State<ChooseWifi> {
 
   @override
   Widget build(BuildContext context) {
+    print('BUILD -- IN CHOOSE WIFI');
+
     return Scaffold(
       body: SafeArea(
         child: Container(
@@ -48,7 +50,7 @@ class _ChooseWifiState extends State<ChooseWifi> {
                 ),
                 Padding(
                   padding: const EdgeInsets.all(24),
-                  child: ListWifi(serialNumber: widget.serialNumber),
+                  child: _ListWifi(serialNumber: widget.serialNumber),
                 ),
               ],
             ),
@@ -59,24 +61,27 @@ class _ChooseWifiState extends State<ChooseWifi> {
   }
 }
 
-class ListWifi extends StatefulWidget {
+class _ListWifi extends StatefulWidget {
   final String serialNumber;
-  const ListWifi({super.key, required this.serialNumber});
+  const _ListWifi({required this.serialNumber});
 
   @override
-  State<ListWifi> createState() => _ListWifiState();
+  State<_ListWifi> createState() => _ListWifiState();
 }
 
-class _ListWifiState extends State<ListWifi> {
-
+class _ListWifiState extends State<_ListWifi> {
   @override
   Widget build(BuildContext context) {
-    Future<WifiDetailOutput> wifis =
-        Provider.of<WifiDetailProvider>(context, listen: true).getWifi();
+    // final wifi = context.watch<WifiDetailProvider>();
+    // Future<WifiDetailOutput> wifis =
+    // Provider.of<WifiDetailProvider>(context, listen: true).getWifi();
 
     return FutureBuilder(
-      future: wifis,
+      future: context
+          .read<WifiDetailProvider>()
+          .getWifi(), // Provider.of<WifiDetailProvider>(context, listen: false).getWifi(),
       builder: (context, snapshot) {
+        print('BUILD -- _ListWifi');
         if (snapshot.hasData) {
           return ListView.separated(
             physics: const NeverScrollableScrollPhysics(),

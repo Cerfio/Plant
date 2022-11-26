@@ -32,41 +32,50 @@ class _EnterWifiPasswordState extends State<EnterWifiPassword> {
   final TextEditingController _passwordController = TextEditingController();
   bool _passwordIsVisible = false;
 
+  void _connectWifiAction() {
+    final wifi = context.read<WifiDetailProvider>();
+
+    if (_formKey.currentState!.validate() &&
+        wifi.connectWifiStatus != ConnectWifiStatus.connecting) {
+      wifi
+          .connectWifi(
+            widget.name,
+            widget.serialNumber,
+            _passwordController.text,
+          )
+          .then(
+            (result) => {
+              if (result.status == true)
+                {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) {
+                        return PlantCreated(
+                          serialNumber: widget.serialNumber,
+                        );
+                      },
+                    ),
+                  )
+                }
+              else
+                {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text("Error: $result['message']"),
+                    ),
+                  )
+                }
+            },
+          );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    WifiDetailProvider wifi = Provider.of<WifiDetailProvider>(context);
+    // WifiDetailProvider wifi = Provider.of<WifiDetailProvider>(context);
 
-    void connectWifiAction() {
-      if (_formKey.currentState!.validate() &&
-          wifi.connectWifiStatus != ConnectWifiStatus.connecting) {
-        wifi.connectWifi(widget.name, widget.serialNumber, _passwordController.text).then(
-              (result) => {
-                if (result.status == true)
-                  {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) {
-                          return PlantCreated(
-                            serialNumber: widget.serialNumber,
-                          );
-                        },
-                      ),
-                    )
-                  }
-                else
-                  {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        content: Text("Error: $result['message']"),
-                      ),
-                    )
-                  }
-              },
-            );
-      }
-    }
-
+    print('BUILD -- IN ENTER WIFI PASSWORD');
     return Scaffold(
       body: SafeArea(
         child: Container(
@@ -156,7 +165,7 @@ class _EnterWifiPasswordState extends State<EnterWifiPassword> {
                           width: double.infinity,
                           height: 48,
                           child: ElevatedButton(
-                            onPressed: () => connectWifiAction(),
+                            onPressed: _connectWifiAction,
                             style: ButtonStyle(
                               backgroundColor: MaterialStateProperty.all<Color>(
                                 const Color(0xffC9DBBD),

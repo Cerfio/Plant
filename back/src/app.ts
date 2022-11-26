@@ -3,6 +3,7 @@ import * as config from './../config/config';
 import fastify from 'fastify';
 import fastifyBlipp from 'fastify-blipp';
 import fastifyJwt from '@fastify/jwt';
+import fastifyCors from '@fastify/cors';
 import mqtt from 'mqtt';
 
 import fastifySensible from '@fastify/sensible';
@@ -28,6 +29,9 @@ const loadPlugins = async () => {
   await server.register(fastifyJwt, {
     secret: server.config.SECRET_JWT,
     sign: { algorithm: 'HS256', expiresIn: '31d' },
+  });
+  await server.register(fastifyCors, {
+    origin: '*',
   });
 };
 

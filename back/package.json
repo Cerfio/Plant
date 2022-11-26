@@ -28,6 +28,7 @@
   },
   "homepage": "https://github.com/duncanlew/demo-fastify-typescript#readme",
   "dependencies": {
+    "@fastify/cors": "^8.2.0",
     "@fastify/env": "^4.1.0",
     "@fastify/jwt": "^6.3.3",
     "@fastify/sensible": "^5.1.1",

@@ -8,9 +8,16 @@
     "start": "next start"
   },
   "dependencies": {
+    "@nextui-org/react": "^1.0.0-beta.10",
+    "@tanstack/react-query": "^4.17.1",
+    "@types/universal-cookie": "^3.0.0",
+    "axios": "^1.2.0",
+    "formik": "^2.2.9",
     "next": "12.3.1",
     "react": "18.2.0",
-    "react-dom": "18.2.0"
+    "react-dom": "18.2.0",
+    "sass": "^1.56.1",
+    "universal-cookie": "^4.0.4"
   },
   "devDependencies": {
     "@types/node": "18.8.3",

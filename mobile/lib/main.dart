@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:plant_iot_epitech/providers/auth_provider.dart';
 import 'package:plant_iot_epitech/providers/plant_provider.dart';
+import 'package:plant_iot_epitech/providers/user_provider.dart';
 import 'package:plant_iot_epitech/providers/wifi_detail_provider.dart';
 import 'package:plant_iot_epitech/screens/introduction.dart';
 import 'package:plant_iot_epitech/screens/my_plants.dart';
@@ -32,6 +33,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => AuthProvider()),
         ChangeNotifierProvider(create: (_) => PlantProvider()),
         ChangeNotifierProvider(create: (_) => WifiDetailProvider()),
+        ChangeNotifierProvider(create: (_) => UserProvider()),
       ],
       child: MaterialApp(
         title: 'Flutter Demo',

@@ -34,7 +34,6 @@ class UserPreferences {
     prefs.setString("firstName", user.firstName);
     prefs.setString("lastName", user.lastName);
     prefs.setString("email", user.email);
-    prefs.setString("token", user.token);
   }
 
   Future<User> getUser() async {
@@ -44,14 +43,12 @@ class UserPreferences {
     String firstName = prefs.getString("firstName") ?? "";
     String lastName = prefs.getString("lastName") ?? "";
     String email = prefs.getString("email") ?? "";
-    String token = prefs.getString("token") ?? "";
 
     return User(
       userId: userId,
       firstName: firstName,
       lastName: lastName,
       email: email,
-      token: token,
     );
   }
 

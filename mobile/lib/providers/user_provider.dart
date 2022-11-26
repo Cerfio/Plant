@@ -8,13 +8,11 @@ import 'package:plant_iot_epitech/models/user.dart';
 import 'package:plant_iot_epitech/services/api_url.dart';
 import 'package:plant_iot_epitech/storage/user_preferences.dart';
 
-
 enum GetUserStatus {
   notFetched,
   fetching,
   fetched,
 }
-
 
 class UserOutput {
   final bool status;
@@ -42,7 +40,6 @@ class UserProvider with ChangeNotifier {
         status: false,
         error: "No token",
         message: "No token",
-
       );
     }
 
@@ -51,20 +48,23 @@ class UserProvider with ChangeNotifier {
     Response response = await get(
       Uri.parse(ApiURL.getUser),
       headers: {
-        HttpHeaders.authorizationHeader: 'Bearer ',
+        HttpHeaders.authorizationHeader: 'Bearer $token',
       },
     );
 
     Map<String, dynamic> responseData = json.decode(response.body);
 
+    print(responseData);
+
     if (response.statusCode == 200) {
+      User user = User.fromJson(responseData);
       _getUserStatus = GetUserStatus.fetched;
       notifyListeners();
 
       return UserOutput(
         status: true,
         message: "User fetched",
-        user: User.fromJson(responseData['user']),
+        user: user,
       );
     }
     return UserOutput(

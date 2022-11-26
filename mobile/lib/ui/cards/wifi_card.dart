@@ -5,7 +5,7 @@ import 'package:plant_iot_epitech/screens/enter_wifi_password.dart';
 
 class WifiCard extends StatelessWidget {
   final String name;
-  final double powerOfSignal;
+  final int powerOfSignal;
   final bool isChoosing;
   const WifiCard({
     super.key,
@@ -87,7 +87,7 @@ class WifiCard extends StatelessWidget {
 }
 
 class _WifiChecker extends StatefulWidget {
-  final double powerOfSignal;
+  final int powerOfSignal;
   const _WifiChecker({required this.powerOfSignal});
 
   @override

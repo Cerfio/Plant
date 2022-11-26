@@ -5,7 +5,7 @@ import 'package:plant_iot_epitech/validator/wifi_validator.dart';
 
 class EnterWifiPassword extends StatefulWidget {
   final String name;
-  final double powerOfSignal;
+  final int powerOfSignal;
 
   const EnterWifiPassword({
     super.key,

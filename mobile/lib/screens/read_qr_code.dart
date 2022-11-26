@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
+import 'package:plant_iot_epitech/screens/choose_wifi.dart';
 import 'package:plant_iot_epitech/screens/plant_created.dart';
+
+import 'before_choose_wifi.dart';
 
 class ReadQrCode extends StatefulWidget {
   const ReadQrCode({super.key});
@@ -97,7 +100,8 @@ class _ReadQrCodeState extends State<ReadQrCode> {
                       context,
                       MaterialPageRoute(
                         builder: (context) {
-                          return const PlantCreated();
+                          // return const PlantCreated();
+                          return BeforeChooseWifi();
                         },
                       ),
                     );

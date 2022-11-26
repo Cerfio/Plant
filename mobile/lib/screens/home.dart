@@ -46,12 +46,11 @@ class _HomeState extends State<Home> {
             ),
             child: _scrollingList(sc, pc, context),
           ),
-          body: Column(
-            mainAxisSize: MainAxisSize.max,
-            children: [
-              const Padding(
-                padding: EdgeInsets.only(top: 40),
-                child: Text(
+          body: SafeArea(
+            child: Column(
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                const Text(
                   "Hello, Cerfio",
                   style: TextStyle(
                     fontSize: 32,
@@ -60,74 +59,74 @@ class _HomeState extends State<Home> {
                   ),
                   textAlign: TextAlign.center,
                 ),
-              ),
-              const SizedBox(height: 20),
-              const Text(
-                "Let's start taking care of your plants now",
-                style: TextStyle(
-                  fontSize: 16,
-                  color: Color(0xff8BA07E),
-                ),
-                textAlign: TextAlign.center,
-              ),
-              const SizedBox(height: 20),
-              ElevatedButton.icon(
-                onPressed: () => {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) {
-                        return const ReadQrCode();
-                      },
-                    ),
-                  )
-                },
-                icon: const Icon(Icons.add, size: 24),
-                label: const Text(
-                  'Add a plant',
+                const SizedBox(height: 20),
+                const Text(
+                  "Let's start taking care of your plants now",
                   style: TextStyle(
                     fontSize: 16,
+                    color: Color(0xff8BA07E),
                   ),
+                  textAlign: TextAlign.center,
                 ),
-                style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all<Color>(
-                    const Color(0xffDD822A),
-                  ),
-                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                    RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(48),
+                const SizedBox(height: 20),
+                ElevatedButton.icon(
+                  onPressed: () => {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) {
+                          return const ReadQrCode();
+                        },
+                      ),
+                    )
+                  },
+                  icon: const Icon(Icons.add, size: 24),
+                  label: const Text(
+                    'Add a plant',
+                    style: TextStyle(
+                      fontSize: 16,
                     ),
                   ),
-                  fixedSize: MaterialStateProperty.all<Size>(
-                    const Size(200, 48),
+                  style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all<Color>(
+                      const Color(0xffDD822A),
+                    ),
+                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                      RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(48),
+                      ),
+                    ),
+                    fixedSize: MaterialStateProperty.all<Size>(
+                      const Size(200, 48),
+                    ),
                   ),
                 ),
-              ),
-              const SizedBox(height: 20),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  SizedBox(
-                    width: 117,
-                    height: 117,
-                    child: Image.asset('assets/plants/flower-plant.png'),
-                  ),
-                  Container(
-                    margin: const EdgeInsets.only(top: 20),
-                    width: 106,
-                    height: 106,
-                    child:
-                        Image.asset('assets/plants/smiling-flower-plant.png'),
-                  ),
-                  SizedBox(
-                    width: 117,
-                    height: 117,
-                    child: Image.asset('assets/plants/flower-plant.png'),
-                  ),
-                ],
-              )
-            ],
+                const SizedBox(height: 20),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    SizedBox(
+                      width: 117,
+                      height: 117,
+                      child: Image.asset('assets/plants/flower-plant.png'),
+                    ),
+                    Container(
+                      margin: const EdgeInsets.only(top: 20),
+                      width: 106,
+                      height: 106,
+                      child:
+                          Image.asset('assets/plants/smiling-flower-plant.png'),
+                    ),
+                    SizedBox(
+                      width: 117,
+                      height: 117,
+                      child: Image.asset('assets/plants/flower-plant.png'),
+                    ),
+                  ],
+                )
+              ],
+            ),
           ),
         ),
       ),
@@ -213,9 +212,11 @@ class _HomeState extends State<Home> {
                       id: snapshot.data!.plants![index].id,
                       name: snapshot.data!.plants![index].name,
                       type: '1',
-                      waterStatus: snapshot.data!.plants![index].datas[0].humiditySoil,
+                      waterStatus:
+                          snapshot.data!.plants![index].datas[0].humiditySoil,
                       lightStatus: snapshot.data!.plants![index].datas[0].light,
-                      temperatureStatus: snapshot.data!.plants![index].datas[0].temperature,
+                      temperatureStatus:
+                          snapshot.data!.plants![index].datas[0].temperature,
                     );
                   },
                 );

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:plant_iot_epitech/providers/wifi_detail_provider.dart';
 import 'package:plant_iot_epitech/ui/cards/wifi_card.dart';
+import 'package:provider/provider.dart';
 
 class ChooseWifi extends StatefulWidget {
   const ChooseWifi({super.key});
@@ -88,17 +90,31 @@ class _ListWifiState extends State<ListWifi> {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.separated(
-      physics: const NeverScrollableScrollPhysics(),
-      shrinkWrap: true,
-      itemCount: _listLength,
-      separatorBuilder: (context, index) => const SizedBox(height: 20),
-      itemBuilder: (BuildContext context, int index) {
-        return WifiCard(
-          name: _wifiList[index].name,
-          powerOfSignal: _wifiList[index].powerOfSignal,
-          isChoosing: true,
-        );
+    // Future<WifiDetailOutput> wifis =
+    // Provider.of<WifiDetailProvider>(context, listen: false).getWifi();
+
+    return FutureBuilder(
+      future: Future.delayed(const Duration(seconds: 10)),
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          return ListView.separated(
+            physics: const NeverScrollableScrollPhysics(),
+            shrinkWrap: true,
+            itemCount: snapshot.data!.wifis!.length,
+            separatorBuilder: (context, index) => const SizedBox(height: 20),
+            itemBuilder: (BuildContext context, int index) {
+              return WifiCard(
+                name: snapshot.data!.wifis![index].ssid,
+                powerOfSignal: snapshot.data!.wifis![index].rssi,
+                isChoosing: true,
+              );
+            },
+          );
+        } else {
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
+        }
       },
     );
   }

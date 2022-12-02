@@ -19,7 +19,7 @@ class CardElementaryWater extends StatelessWidget {
       subtitleColor: const Color(0xff4375AB),
       iconColor: const Color(0xff4375AB),
       title: 'Water Quantity',
-      subtitle: '$value',
+      subtitle: 'Wet',
       icon: Icons.water_drop_outlined,
       callback: callback,
     );

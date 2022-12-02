@@ -47,16 +47,19 @@ class _EnterWifiPasswordState extends State<EnterWifiPassword> {
             (result) => {
               if (result.status == true)
                 {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) {
-                        return PlantCreated(
-                          serialNumber: widget.serialNumber,
-                        );
-                      },
+                  Future.delayed(
+                    const Duration(seconds: 20),
+                    () => Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) {
+                          return PlantCreated(
+                            serialNumber: widget.serialNumber,
+                          );
+                        },
+                      ),
                     ),
-                  )
+                  ),
                 }
               else
                 {
@@ -153,9 +156,7 @@ class _EnterWifiPasswordState extends State<EnterWifiPassword> {
                 ),
                 const SizedBox(height: 24),
                 Padding(
-                  padding: const EdgeInsets.all(24),
-                  child: _enterWifiCard()
-                ),
+                    padding: const EdgeInsets.all(24), child: _enterWifiCard()),
                 Container(
                   padding:
                       const EdgeInsets.symmetric(horizontal: 24, vertical: 12),

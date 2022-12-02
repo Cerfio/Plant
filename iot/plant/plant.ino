@@ -8,6 +8,7 @@
 #include <MQTTClient.h>
 #include <SPI.h>
 #include <Adafruit_BME280.h>
+#include <LowPower.h>
 
 #ifndef APSSID
 #define HOSTNAME "Plant"
@@ -40,8 +41,10 @@ Adafruit_BME280 bme;
 
 bool canPublish = false;
 
+void (*resetFunc)(void) = 0;
 
 void scanNetwork() {
+  Serial.println("Try scan network");
   DynamicJsonDocument doc(2048);
 
 
@@ -107,7 +110,7 @@ bool connectMqtt() {
 void connectNetwork() {
   if (server.hasArg("plain") == false) {  //Check if body received
 
-    server.send(200, "text/plain", "Body not received");
+    server.send(400, "text/json", "Body not received");
     return;
   }
   DynamicJsonDocument doc(1024);
@@ -136,8 +139,10 @@ void connectNetwork() {
   preferences.putString("ssid", ssid);
   preferences.putString("password", password);
   preferences.putString("serialNumber", serialNumber);
-
   server.send(200, "text/json", "{\"message\":true}");
+  delay(1000);
+  WiFi.mode(WIFI_OFF);
+  resetFunc();
 }
 
 const int get_light_luminosity() {
@@ -175,6 +180,9 @@ struct bme_sensor get_temperature_humidity_pression_altitude() {
 void setup() {
   delay(1000);
   Serial.begin(9600);
+  pinMode(13, INPUT);
+  pinMode(15, OUTPUT);
+  digitalWrite(15, LOW);
 
 
   // // Initialisation du BME280
@@ -188,11 +196,8 @@ void setup() {
     Serial.println(F("--> RÉUSSIE !"));
   }
 
-  Serial.println();
-  Serial.println("Configuring access point...");
-
-
-  preferences.begin(PREFERENCE_FILE_NAME, true);
+  preferences.begin(PREFERENCE_FILE_NAME, false);
+  // preferences.clear();
 
   String serialNumber = preferences.getString("serialNumber", "");
   String ssid = preferences.getString("ssid", "");
@@ -222,12 +227,20 @@ void setup() {
     server.on("/network/scan", scanNetwork);
     server.on("/network/connect", connectNetwork);
     server.begin();
+
     Serial.println("HTTP server started");
   }
-  mqttclient.connect();
 }
 
 void loop() {
+  const int buttonState = digitalRead(13);
+
+  if (buttonState == HIGH) {
+    Serial.println("Reset Arduino");
+    preferences.clear();
+    delay(1000);
+    resetFunc();
+  }
   if (canPublish) {
 
     const bme_sensor bme_sensor = get_temperature_humidity_pression_altitude();
@@ -237,12 +250,12 @@ void loop() {
     String serialNumber = preferences.getString("serialNumber", "");
     String payload = "{\"serialNumber\":\"" + serialNumber + "\",\"temperature\":" + String(bme_sensor.temperature) + ",\"humiditySoil\":" + String(soil_moisture_value) + ",\"humidityAir\":" + String(bme_sensor.humidity) + ",\"light\":" + String(0) + ",\"battery\":" + String(100) + ",\"pressure\":" + String(bme_sensor.pression) + "}";
     topic.publish(payload.c_str(), false);
+    digitalWrite(15, HIGH);
     while (tasks.available()) {
       tasks.run();
     }
+    digitalWrite(15, LOW);
+  } else {
+    server.handleClient();
   }
-
-
-  // Dont overload the server!
-  delay(1000);
 }

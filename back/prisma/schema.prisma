@@ -12,17 +12,30 @@ datasource db {
 }
 
 model User {
-  id        String       @id @default(uuid())
-  email     String       @unique
-  firstname String
-  lastname  String
-  password  String
-  language  LanguageEnum
-  profile   Profile?
-  plants    Plant[]
-  admin     Boolean      @default(false)
-  createdAt DateTime     @default(now())
-  updatedAt DateTime     @updatedAt
+  id                  String                @id @default(uuid())
+  email               String                @unique
+  firstname           String
+  lastname            String
+  password            String
+  language            LanguageEnum
+  profile             Profile?
+  plants              Plant[]
+  admin               Boolean               @default(false)
+  WebPushSubscriptios WebPushSubscription[]
+  createdAt           DateTime              @default(now())
+  updatedAt           DateTime              @updatedAt
+}
+
+model WebPushSubscription {
+  id             String   @id @default(uuid())
+  endpoint       String
+  expirationTime String?
+  p256dh         String
+  auth           String
+  user           User     @relation(fields: [userId], references: [id])
+  userId         String
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
 }
 
 model Profile {

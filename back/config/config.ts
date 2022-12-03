@@ -26,6 +26,14 @@ const schema = {
     SENDGRID_API_KEY: {
       type: "string",
     },
+    WEB_PUSH_PUBLIC_KEY: {
+      type: "string",
+      default: "",
+    },
+    WEB_PUSH_PRIVATE_KEY: {
+      type: "string",
+      default: "",
+    },
   },
 };
 

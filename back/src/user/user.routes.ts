@@ -25,6 +25,7 @@ export default fp(async (server: any, opts: any, next: any) => {
     '/user',
     {
       preValidation: [server.sentry, server.authenticate],
+      exposeHeadRoute: false,
     },
     new UserController(server).get,
   );
@@ -33,6 +34,7 @@ export default fp(async (server: any, opts: any, next: any) => {
     '/users',
     {
       preValidation: [server.sentry, server.authenticate],
+      exposeHeadRoute: false,
     },
     new UserController(server).gets,
   );

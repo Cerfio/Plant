@@ -35,6 +35,7 @@ export default fp(async (server: any, opts: any, next: any) => {
   server.get(
     '/auth/email/available',
     {
+      exposeHeadRoute: false,
       schema: {
         querystring: emailAvailableQuerySchema,
       },

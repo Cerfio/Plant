@@ -2,10 +2,13 @@ import { LogTaskController } from '../../common/LogTask';
 import { PlantService } from './plant.service';
 import axios from 'axios';
 import { PlantDeleteNotAuthorizedError, PlantGeneratorNameError, PlantNotFoundError } from './plant.exceptions';
+import { NotificationService } from '../notification/notification.service';
+import { NotificationType } from '@prisma/client';
 
 export class PlantController {
   logTask: LogTaskController = new LogTaskController('PlantController');
   plantService: PlantService = new PlantService(this.server);
+  notificationService: NotificationService = new NotificationService(this.server);
   constructor(readonly server: any) {}
 
   create = async (request: any, reply: any) => {
@@ -19,6 +22,7 @@ export class PlantController {
       throw new PlantGeneratorNameError(this.server);
     }
     await this.plantService.create(request.user.id, name, request.body.macAddress, request.body.serialNumber);
+    await this.notificationService.create(request.user.id, NotificationType.NEW_PLANT);
     this.logTask.end('create');
     reply.code(200).send({ message: name });
   };
@@ -45,19 +49,19 @@ export class PlantController {
     const plants = await this.plantService.findMany(request.user.id);
     this.logTask.end('gets');
     reply.code(200).send(plants);
-  }
+  };
 
   get = async (request: any, reply: any) => {
     this.logTask.start('get');
     const plant = await this.plantService.findById(request.params.id);
     this.logTask.end('get');
     reply.code(200).send(plant);
-  }
+  };
 
   plantsUser = async (request: any, reply: any) => {
     this.logTask.start('plantsUser');
     const plants = await this.plantService.findManyByUserId(request.query.userId);
     this.logTask.end('plantsUser');
     reply.code(200).send(plants);
-  }
+  };
 }

@@ -8,7 +8,6 @@ import { plantDeleteResponseSchema } from './dtos/output/plant.delete.output';
 import { plantGetsResponseSchema } from './dtos/output/plant.gets.output';
 import { plantGetResponseSchema } from './dtos/output/plant.get.output';
 
-
 import { PlantController } from './plant.controller';
 
 // Inputs
@@ -32,14 +31,14 @@ export default fp(async (server: any, opts: any, next: any) => {
     '/plant/:id',
     {
       preValidation: [server.sentry, server.authenticate],
+      exposeHeadRoute: false,
       schema: {
         params: plantGetParamSchema,
         response: plantGetResponseSchema,
       },
     },
     new PlantController(server).get,
-  )
-
+  );
 
   server.delete(
     '/plant/:id',
@@ -51,12 +50,13 @@ export default fp(async (server: any, opts: any, next: any) => {
       },
     },
     new PlantController(server).delete,
-  )
+  );
 
   server.get(
     '/plant',
     {
       preValidation: [server.sentry, server.authenticate],
+      exposeHeadRoute: false,
       schema: {
         response: plantGetsResponseSchema,
       },
@@ -68,8 +68,9 @@ export default fp(async (server: any, opts: any, next: any) => {
     '/user/plant',
     {
       preValidation: [server.sentry, server.authenticate],
+      exposeHeadRoute: false,
     },
     new PlantController(server).plantsUser,
-  )
+  );
   next();
 });
